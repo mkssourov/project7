@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKS SWADHIN — Smart Digital Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<style>
+:root {
+    --primary: #1a1aec;
+    --primary-light: #4f46e5;
+    --secondary: #0b1e4b;
+    --accent: #00d4aa;
+    --gold: #f0c040;
+    --text-main: #0f172a;
+    --text-light: #64748b;
+    --white: #f8faff;
+    --card-bg: #ffffff;
+    --glass: rgba(255,255,255,0.12);
+    --shadow-blue: rgba(26,26,236,0.25);
+    --shadow-deep: rgba(11,30,75,0.4);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: radial-gradient(ellipse at 30% 20%, #0d0d2b 0%, #070714 60%, #0a0a1a 100%); display:flex; justify-content:center; min-height:100vh; padding:20px 0; font-family:'Plus Jakarta Sans',sans-serif; }
+
+/* ====== PARTICLE BACKGROUND ====== */
+#particles { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.particle { position:absolute; border-radius:50%; animation: floatUp linear infinite; opacity:0; }
+@keyframes floatUp { 0%{transform:translateY(110vh) scale(0);opacity:0;} 10%{opacity:1;} 90%{opacity:0.6;} 100%{transform:translateY(-10vh) scale(1.2);opacity:0;} }
+
+/* ====== CARD CONTAINER ====== */
+.card-container {
+    width:100%; max-width:480px;
+    background: linear-gradient(170deg, #ffffff 0%, #f0f4ff 60%, #e8f0fe 100%);
+    min-height:100vh; position:relative; z-index:10;
+    box-shadow: 0 0 80px -10px var(--shadow-blue), 0 0 200px -30px var(--primary);
+    border-radius:40px; overflow:hidden; padding-bottom:60px;
+    animation: cardReveal 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes cardReveal { from{opacity:0;transform:translateY(40px) scale(0.95);} to{opacity:1;transform:translateY(0) scale(1);} }
+
+/* ====== HERO ====== */
+.hero {
+    height:180px; position:relative; overflow:hidden;
+    background: linear-gradient(135deg, #0b1e4be0 0%, #1a1aec 50%, #0a0a2ad2 100%);
+}
+.hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.5; }
+.hero-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(11, 30, 75, 0) 0%, rgba(11,30,75,0.7) 100%);
+}
+.hero-particles { position:absolute; inset:0; overflow:hidden; }
+.hero-orb { position:absolute; border-radius:50%; filter:blur(40px); animation:orbPulse 4s ease-in-out infinite alternate; }
+.orb1 { width:200px; height:200px; background:rgba(78, 70, 229, 0); top:-60px; right:-40px; animation-delay:0s; }
+.orb2 { width:150px; height:150px; background:rgba(0, 212, 170, 0); bottom:-40px; left:20px; animation-delay:1.5s; }
+@keyframes orbPulse { from{transform:scale(1);opacity:0.6;} to{transform:scale(1.3);opacity:1;} }
+
+.hero-badge {
+    position:absolute; top:20px; right:20px;
+    background:rgba(255,255,255,0.1); backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.2); border-radius:50px;
+    padding:6px 14px; color:rgba(255,255,255,0.9); font-size:0.7rem; font-weight:700; letter-spacing:2px;
+    animation: fadeIn 1s 0.5s both;
+}
+@keyframes fadeIn { from{opacity:0;transform:translateX(20px);} to{opacity:1;transform:translateX(0);} }
+
+/* ====== PROFILE HEADER ====== */
+.profile-header { text-align:center; margin-top:-80px; padding:0 30px; position:relative; z-index:10; }
+
+.main-logo-wrap {
+    width:140px; height:140px; margin:0 auto 0;
+    border-radius:35px;
+    padding:3px;
+    background: linear-gradient(135deg, var(--accent), var(--primary), var(--gold));
+    box-shadow: 0 20px 60px rgba(26,26,236,0.5), 0 0 0 6px rgba(255,255,255,0.8);
+    animation: logoEntry 0.8s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    position:relative;
+}
+@keyframes logoEntry { from{opacity:0;transform:translateY(30px) scale(0.8);} to{opacity:1;transform:translateY(0) scale(1);} }
+.main-logo { width:100%; height:100%; border-radius:33px; object-fit:cover; display:block; }
+
+.online-dot {
+    position:absolute; bottom:8px; right:8px;
+    width:18px; height:18px; background:#22c55e;
+    border-radius:50%; border:3px solid white;
+    box-shadow:0 0 12px #22c55e;
+    animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{box-shadow:0 0 8px #22c55e;} 50%{box-shadow:0 0 20px #22c55e, 0 0 40px rgba(34,197,94,0.4);} }
+
+.company-info { animation: textEntry 0.8s 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes textEntry { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+.company-info h1 { font-family:'Cinzel',serif; font-size:2rem; font-weight:900; color:var(--secondary); margin-top:18px; letter-spacing:2px; }
+.company-info .title-tag { color:var(--primary-light); font-weight:700; letter-spacing:3px; font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; }
+.company-info .bio {
+    color:var(--text-light); font-size:0.9rem; line-height:1.6;
+    background:linear-gradient(135deg,rgba(79,70,229,0.08),rgba(0,212,170,0.08));
+    border:1px solid rgba(79,70,229,0.15); border-radius:15px; padding:10px 15px; margin-top:10px;
+}
+
+/* ====== DIVIDER ====== */
+.fancy-divider { display:flex; align-items:center; gap:12px; padding:20px 30px 0; }
+.fancy-divider .line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(26,26,236,0.3),transparent); }
+.fancy-divider .dot { width:8px; height:8px; border-radius:50%; background:var(--primary); box-shadow:0 0 8px var(--primary); }
+
+/* ====== ACTION BAR ====== */
+.action-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:20px 25px 10px; }
+.action-item { display:flex; flex-direction:column; align-items:center; text-decoration:none; color:var(--secondary); font-weight:700; font-size:0.65rem; gap:8px; animation:itemPop 0.5s both; letter-spacing:1px; }
+.action-item:nth-child(1){animation-delay:0.6s}
+.action-item:nth-child(2){animation-delay:0.7s}
+.action-item:nth-child(3){animation-delay:0.8s}
+.action-item:nth-child(4){animation-delay:0.9s}
+@keyframes itemPop { from{opacity:0;transform:scale(0.5);} to{opacity:1;transform:scale(1);} }
+.icon-box {
+    width:58px; height:58px; border-radius:20px;
+    background:linear-gradient(135deg,#e8eeff,#f0f4ff);
+    box-shadow:0 8px 25px rgba(26,26,236,0.2), inset 0 1px 0 rgba(255,255,255,0.8);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; color:var(--primary); transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+    position:relative; overflow:hidden;
+}
+.icon-box::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--primary),var(--primary-light)); opacity:0; transition:opacity 0.3s; }
+.icon-box i { position:relative; z-index:1; transition:color 0.3s; }
+.action-item:hover .icon-box { transform:translateY(-6px) scale(1.05); box-shadow:0 20px 40px rgba(26,26,236,0.35); }
+.action-item:hover .icon-box::before { opacity:1; }
+.action-item:hover .icon-box i { color:#fff; }
+
+/* ====== SOCIAL BAR ====== */
+.social-bar { display:flex; justify-content:center; gap:14px; padding:8px 30px 20px; }
+.social-icon {
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(135deg,#e8eeff,#f0f4ff);
+    box-shadow:0 6px 20px rgba(26,26,236,0.15);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; color:var(--text-light); text-decoration:none;
+    transition:all 0.35s cubic-bezier(0.16,1,0.3,1); position:relative; overflow:hidden;
+}
+.social-icon::before { content:''; position:absolute; inset:0; border-radius:50%; opacity:0; transition:opacity 0.3s; }
+.social-icon i { position:relative; z-index:1; }
+.social-icon:hover { transform:translateY(-5px) scale(1.1); }
+.social-icon.fb::before { background:#1877F2; } .social-icon.fb:hover::before{opacity:1;} .social-icon.fb:hover{color:#fff; box-shadow:0 12px 30px rgba(24,119,242,0.4);}
+.social-icon.ig::before { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); } .social-icon.ig:hover::before{opacity:1;} .social-icon.ig:hover{color:#fff;}
+.social-icon.in::before { background:#0A66C2; } .social-icon.in:hover::before{opacity:1;} .social-icon.in:hover{color:#fff;}
+.social-icon.yt::before { background:#FF0000; } .social-icon.yt:hover::before{opacity:1;} .social-icon.yt:hover{color:#fff;}
+
+/* ====== SAVE BUTTON ====== */
+.save-section { padding:0 25px 25px; }
+.btn-save {
+    width:100%; padding:18px; border:none; border-radius:20px;
+    background:linear-gradient(135deg,var(--secondary) 0%,var(--primary) 100%);
+    color:#fff; font-weight:700; font-size:0.95rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    box-shadow:0 15px 40px rgba(26,26,236,0.4); transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+    position:relative; overflow:hidden; letter-spacing:1px;
+}
+.btn-save::before { content:''; position:absolute; inset:-2px; background:linear-gradient(135deg,var(--accent),var(--primary),var(--gold)); opacity:0; transition:opacity 0.4s; z-index:0; border-radius:22px; }
+.btn-save span, .btn-save i { position:relative; z-index:1; }
+.btn-save:hover { transform:translateY(-3px); box-shadow:0 25px 50px rgba(26,26,236,0.5); }
+.btn-save:hover::before { opacity:1; }
+
+/* ====== SECTION LABEL ====== */
+.section-label {
+    padding:0 30px; font-weight:800; font-size:1.05rem; margin-bottom:15px;
+    display:flex; align-items:center; gap:10px; color:var(--secondary);
+}
+.section-label i { color:var(--primary); filter:drop-shadow(0 0 6px rgba(26,26,236,0.5)); }
+
+/* ====== SERVICES ====== */
+.services-wrapper { display:flex; overflow-x:auto; padding:0 25px 30px; gap:15px; scrollbar-width:none; scroll-snap-type:x mandatory; }
+.services-wrapper::-webkit-scrollbar { display:none; }
+
+.service-card {
+    min-width:240px; scroll-snap-align:start;
+    background:linear-gradient(135deg,#ffffff,#f0f4ff);
+    padding:28px 22px; border-radius:28px; cursor:pointer;
+    border:1px solid rgba(26,26,236,0.1);
+    box-shadow:0 8px 30px rgba(26,26,236,0.1), 0 1px 0 rgba(255,255,255,0.8) inset;
+    transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+    position:relative; overflow:hidden;
+    animation:cardSlide 0.5s both;
+}
+.service-card:nth-child(1){animation-delay:0.2s}
+.service-card:nth-child(2){animation-delay:0.3s}
+.service-card:nth-child(3){animation-delay:0.4s}
+.service-card:nth-child(4){animation-delay:0.5s}
+.service-card:nth-child(5){animation-delay:0.6s}
+@keyframes cardSlide { from{opacity:0;transform:translateX(30px);} to{opacity:1;transform:translateX(0);} }
+.service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--primary),var(--accent)); transform:scaleX(0); transform-origin:left; transition:transform 0.4s ease; }
+.service-card:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 25px 60px rgba(26,26,236,0.2); }
+.service-card:hover::before { transform:scaleX(1); }
+
+.service-icon-wrap { width:56px; height:56px; border-radius:18px; background:linear-gradient(135deg,var(--primary),var(--primary-light)); display:flex; align-items:center; justify-content:center; margin-bottom:16px; box-shadow:0 8px 20px rgba(26,26,236,0.3); }
+.service-icon-wrap i { font-size:1.5rem; color:#fff; }
+.service-card h3 { font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--secondary); }
+.service-card p { font-size:0.82rem; color:var(--text-light); line-height:1.6; }
+.service-card .tap-hint { display:flex; align-items:center; gap:5px; margin-top:14px; font-size:0.72rem; font-weight:700; color:var(--primary); opacity:0.7; }
+
+/* ====== PAYMENT ====== */
+.payment-area { padding:0 25px 30px; }
+.tabs-nav { display:flex; background:linear-gradient(135deg,#e8eeff,#f0f4ff); padding:5px; border-radius:18px; margin-bottom:15px; box-shadow:0 4px 15px rgba(26,26,236,0.1) inset; }
+.tab-trigger { flex:1; padding:11px; border:none; background:none; font-weight:700; color:var(--text-light); cursor:pointer; border-radius:14px; transition:all 0.3s; font-size:0.8rem; letter-spacing:1px; }
+.tab-trigger.active { background:#fff; color:var(--primary); box-shadow:0 8px 20px rgba(26,26,236,0.2); }
+.tab-pane { display:none; background:linear-gradient(135deg,#f8faff,#f0f4ff); border-radius:22px; padding:28px; text-align:center; border:1px solid rgba(26,26,236,0.08); }
+.tab-pane.active { display:block; animation:slideUp 0.4s cubic-bezier(0.16,1,0.3,1); }
+@keyframes slideUp { from{opacity:0;transform:translateY(15px);} to{opacity:1;transform:translateY(0);} }
+
+/* ====== CONTACT FORM ====== */
+.contact-form { padding:0 25px 30px; }
+.input-group { margin-bottom:15px; }
+.input-group input, .input-group textarea {
+    width:100%; padding:16px 20px; border-radius:16px;
+    border:2px solid rgba(26,26,236,0.1);
+    background:#fff; outline:none; font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:0.9rem; color:var(--text-main);
+    box-shadow:0 4px 15px rgba(26,26,236,0.06);
+    transition:all 0.3s;
+}
+.input-group input:focus, .input-group textarea:focus { border-color:var(--primary); box-shadow:0 0 0 4px rgba(26,26,236,0.08); }
+
+/* ====== MAP ====== */
+.map-box { padding:0 25px 30px; }
+.map-iframe { width:100%; height:220px; border-radius:28px; border:none; box-shadow:0 10px 30px rgba(26,26,236,0.15); }
+
+/* ====== STATS BAR ====== */
+.stats-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:0 25px 30px; }
+.stat-item { background:linear-gradient(135deg,#fff,#f0f4ff); border-radius:20px; padding:18px 12px; text-align:center; box-shadow:0 6px 20px rgba(26,26,236,0.1); border:1px solid rgba(26,26,236,0.08); }
+.stat-num { font-family:'Cinzel',serif; font-size:1.5rem; font-weight:900; color:var(--primary); }
+.stat-label { font-size:0.65rem; color:var(--text-light); font-weight:700; letter-spacing:1px; margin-top:3px; text-transform:uppercase; }
+
+/* ====== SERVICE DETAIL PAGE (OVERLAY) ====== */
+.service-page {
+    position:fixed; inset:0; z-index:1000;
+    background:#070714;
+    overflow-y:auto;
+    transform:translateX(100%);
+    transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    display:flex; flex-direction:column;
+}
+.service-page.open { transform:translateX(0); }
+
+.sp-header {
+    position:sticky; top:0; z-index:10;
+    padding:20px 25px;
+    display:flex; align-items:center; gap:16px;
+    background:rgba(7,7,20,0.85);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.sp-back {
+    width:44px; height:44px; border-radius:14px;
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:#fff; font-size:1.1rem; transition:all 0.3s;
+    flex-shrink:0;
+}
+.sp-back:hover { background:rgba(255,255,255,0.2); transform:translateX(-3px); }
+.sp-header-title { font-family:'Cinzel',serif; font-size:1rem; color:#fff; font-weight:700; letter-spacing:1px; }
+
+.sp-hero {
+    height:280px; position:relative; overflow:hidden;
+    display:flex; align-items:flex-end;
+}
+.sp-hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.sp-hero-overlay { position:absolute; inset:0; background:linear-gradient(180deg,rgba(7,7,20,0.2) 0%,rgba(7,7,20,0.9) 100%); }
+.sp-hero-content { position:relative; z-index:2; padding:30px 25px; }
+.sp-hero-icon { width:60px; height:60px; border-radius:18px; background:linear-gradient(135deg,var(--primary),var(--accent)); display:flex; align-items:center; justify-content:center; font-size:1.6rem; color:#fff; margin-bottom:14px; box-shadow:0 10px 30px rgba(26,26,236,0.5); }
+.sp-hero-content h1 { font-family:'Cinzel',serif; font-size:1.5rem; color:#fff; font-weight:900; margin-bottom:6px; }
+.sp-hero-content .sp-subtitle { color:rgba(255,255,255,0.6); font-size:0.85rem; font-weight:500; }
+
+.sp-body { padding:30px 25px; }
+.sp-desc { color:rgba(255,255,255,0.8); font-size:0.95rem; line-height:1.9; margin-bottom:28px; }
+
+.sp-section-title { color:#fff; font-weight:800; font-size:1rem; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.sp-section-title::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(26,26,236,0.5),transparent); }
+
+.sp-features { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:28px; }
+.sp-feature { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:16px; display:flex; align-items:flex-start; gap:12px; }
+.sp-feature-icon { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,rgba(26,26,236,0.4),rgba(0,212,170,0.3)); display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:var(--accent); flex-shrink:0; }
+.sp-feature p { font-size:0.78rem; color:rgba(255,255,255,0.75); line-height:1.5; font-weight:500; }
+
+.sp-images { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:28px; }
+.sp-img-item { border-radius:18px; overflow:hidden; height:150px; position:relative; }
+.sp-img-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+.sp-img-item:hover img { transform:scale(1.05); }
+.sp-img-item .sp-img-overlay { position:absolute; inset:0; background:linear-gradient(180deg,transparent 60%,rgba(7,7,20,0.7)); }
+
+.sp-video-wrap { border-radius:22px; overflow:hidden; margin-bottom:28px; position:relative; background:#000; }
+.sp-video-wrap iframe { width:100%; height:220px; border:none; display:block; }
+.sp-video-label { background:rgba(26,26,236,0.3); color:rgba(255,255,255,0.7); font-size:0.72rem; font-weight:700; letter-spacing:2px; text-align:center; padding:8px; }
+
+.sp-cta {
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    border-radius:20px; padding:24px; text-align:center;
+    box-shadow:0 15px 40px rgba(26,26,236,0.4);
+}
+.sp-cta p { color:rgba(255,255,255,0.7); font-size:0.85rem; margin-bottom:14px; }
+.sp-cta-btn {
+    display:inline-block; padding:14px 32px; border-radius:14px;
+    background:#fff; color:var(--primary); font-weight:800; font-size:0.9rem;
+    text-decoration:none; transition:all 0.3s; letter-spacing:1px;
+}
+.sp-cta-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,0.2); }
+
+/* ====== PROFILE BLOWING ANIMATION ====== */
+.main-logo-wrap {
+    position: relative;
+}
+.main-logo-wrap::before,
+.main-logo-wrap::after {
+    content: '';
+    position: absolute;
+    
+    background: linear-gradient(135deg, var(--accent), var(--primary), var(--gold), var(--accent));
+    background-size: 300% 300%;
+    animation: glowBlow 3s ease-in-out infinite;
+    z-index: -1;
+}
+.main-logo-wrap::after {
+
+    border-radius: 55px;
+    opacity: 0.4;
+    animation: glowBlow 3s ease-in-out infinite 0.5s;
+}
+@keyframes glowBlow {
+    0%   { background-position: 0% 50%;   opacity: 0.8; transform: scale(1);    filter: blur(0px); }
+    50%  { background-position: 100% 50%; opacity: 1;   transform: scale(1.04); filter: blur(1px); }
+    100% { background-position: 0% 50%;   opacity: 0.8; transform: scale(1);    filter: blur(0px); }
+}
+/* Extra pulse rings */
+.logo-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 35px;
+    border: 2px solid rgba(0,212,170,0.5);
+    animation: ringPulse 2.5s ease-out infinite;
+    pointer-events: none;
+}
+.logo-ring:nth-child(2) { animation-delay: 0.7s; border-color: rgba(26,26,236,0.4); }
+.logo-ring:nth-child(3) { animation-delay: 1.4s; border-color: rgba(240,192,64,0.3); }
+@keyframes ringPulse {
+    0%   { transform: scale(1);    opacity: 1; }
+    100% { transform: scale(1.6);  opacity: 0; }
+}
+
+/* ====== PDF TEMPLATE ====== */
+#pdf-template { position:fixed; left:-9999px; top:-9999px; z-index:-999; pointer-events:none; }
+.pdf-business-card {
+    width: 1050px; height: 600px;
+    background: linear-gradient(135deg, #050d1f 0%, #0b1e4b 40%, #1a1aec 100%);
+    color: #fff; display: flex; position: relative; overflow: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+/* Decorative BG orbs */
+.pdf-business-card::before {
+    content: ''; position: absolute; top: -180px; left: -180px;
+    width: 550px; height: 550px;
+    background: radial-gradient(circle, rgba(79,70,229,0.35), transparent 70%);
+    z-index: 1;
+}
+.pdf-business-card::after {
+    content: ''; position: absolute; bottom: -150px; right: -100px;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(0,212,170,0.2), transparent 70%);
+    z-index: 1;
+}
+/* Diagonal accent stripe */
+.pdf-stripe {
+    position: absolute; top: 0; bottom: 0; left: 42%;
+    width: 3px;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,212,170,0.6) 30%, rgba(240,192,64,0.6) 70%, transparent 100%);
+    z-index: 3;
+}
+/* Corner badge */
+.pdf-corner-badge {
+    position: absolute; top: 30px; right: 40px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px; padding: 6px 18px;
+    font-size: 11px; font-weight: 800; letter-spacing: 3px; color: rgba(255,255,255,0.7);
+    z-index: 5;
+}
+.pdf-left {
+    width: 43%; padding: 55px 50px 55px 60px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+    z-index: 4; position: relative;
+}
+.pdf-avatar-wrap {
+    width: 130px; height: 130px; border-radius: 28px;
+    padding: 3px; margin-bottom: 24px;
+    background: linear-gradient(135deg, #00d4aa, #1a1aec, #f0c040);
+    box-shadow: 0 15px 50px rgba(26,26,236,0.6), 0 0 0 6px rgba(255,255,255,0.08);
+    flex-shrink: 0;
+}
+.pdf-profile-img {
+    width: 100%; height: 100%; border-radius: 26px;
+    object-fit: cover; display: block;
+}
+.pdf-name {
+    font-family: 'Cinzel', serif; font-size: 38px; font-weight: 900;
+    letter-spacing: 3px; line-height: 1.05; color: #ffffff;
+    margin-bottom: 6px; text-transform: uppercase;
+}
+.pdf-title {
+    font-size: 11px; font-weight: 800; letter-spacing: 4px;
+    color: #00d4aa; margin-bottom: 22px; text-transform: uppercase;
+}
+.pdf-divider {
+    width: 60px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, #00d4aa, #1a1aec);
+    margin-bottom: 22px;
+}
+.pdf-bio p {
+    font-size: 13.5px; color: rgba(255,255,255,0.75);
+    margin-bottom: 10px; font-weight: 500;
+    display: flex; align-items: center; gap: 10px; line-height: 1.4;
+}
+.pdf-bio i { color: #f0c040; font-size: 14px; flex-shrink: 0; }
+.pdf-right {
+    width: 57%; padding: 50px 55px 50px 60px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    z-index: 4; position: relative;
+}
+.pdf-right-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+.pdf-contact-info { flex: 1; }
+.pdf-contact-info-title {
+    font-size: 10px; font-weight: 800; letter-spacing: 3px;
+    color: rgba(255,255,255,0.4); margin-bottom: 20px; text-transform: uppercase;
+}
+.pdf-contact-info p {
+    font-size: 14px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+    color: rgba(255,255,255,0.9); font-weight: 500;
+}
+.pdf-contact-icon {
+    color: #fff; background: linear-gradient(135deg, #1a1aec, #4f46e5);
+    width: 34px; height: 34px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px; font-size: 13px;
+    box-shadow: 0 4px 14px rgba(26,26,236,0.5);
+}
+.pdf-qr-side { display: flex; flex-direction: column; align-items: center; }
+.pdf-qr-container {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 16px 18px; text-align: center;
+}
+.pdf-qr {
+    width: 110px; height: 110px; border-radius: 12px;
+    background: white; padding: 6px; display: block;
+}
+.pdf-qr-label {
+    font-size: 9px; font-weight: 800; letter-spacing: 2px;
+    color: rgba(255,255,255,0.45); margin-top: 10px; text-transform: uppercase;
+}
+/* Bottom bar */
+.pdf-bottom-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px;
+}
+.pdf-stats { display: flex; gap: 30px; }
+.pdf-stat { text-align: center; }
+.pdf-stat-num { font-family: 'Cinzel', serif; font-size: 22px; font-weight: 900; color: #f0c040; }
+.pdf-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-top: 2px; }
+.pdf-website {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: rgba(255,255,255,0.5); text-transform: uppercase;
+}
+.pdf-website span { color: #00d4aa; }
+
+/* ====== SCROLL REVEAL ====== */
+.reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- MAIN CARD -->
+<div class="card-container" id="mainCard">
+
+    <div class="hero">
+        <img class="hero-img" src="https://i.ibb.co/PvckzGnw/Whats-App-Image-2026-04-09-at-1-50-33-PM.jpg" alt="Cover">
+        <div class="hero-overlay"></div>
+        <div class="hero-particles">
+            <div class="hero-orb orb1"></div>
+            <div class="hero-orb orb2"></div>
+        </div>
+        <div class=""><i class="fa-solid fa-circle" style="color:#22c55e;font-size:8px;margin-right:5px;"></i></div>
+    </div>
+
+    <div class="profile-header">
+        <div class="main-logo-wrap">
+            <div class="logo-ring"></div>
+            <div class="logo-ring"></div>
+            <div class="logo-ring"></div>
+            <img src="https://i.ibb.co/6Gcps52/Whats-App-Image-2026-04-05-at-12-10-53-AM.jpg" class="main-logo" alt="AKS Swadhin">
+            <div class=""></div>
+        </div>
+        <div class="company-info">
+            <h1>AKS SWADHIN</h1>
+            <p class="title-tag">🏏 National Level Cricketer</p>
+            <p class="bio"><i class="fa-solid fa-award" style="color:var(--gold);margin-right:6px;"></i>Honorable Chairman, Quintessence Group.</p>
+        </div>
+    </div>
+
+    <div class="fancy-divider"><div class="line"></div><div class="dot"></div><div class="line"></div></div>
+
+    <!-- STATS -->
+    <div class="stats-bar reveal" style="margin-top:20px;">
+        <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Years Exp.</div></div>
+        <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Projects</div></div>
+        <div class="stat-item"><div class="stat-num">100+</div><div class="stat-label">Partners</div></div>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div class="action-bar" style="grid-template-columns:repeat(4,1fr);">
+        <a href="tel:+8801784484469" class="action-item"><div class="icon-box"><i class="fa-solid fa-phone"></i></div><span>CALL</span></a>
+        <a href="mailto:hello.aksswadhin@gmail.com" class="action-item"><div class="icon-box"><i class="fa-solid fa-envelope"></i></div><span>EMAIL</span></a>
+        <a href="https://wa.me/8801784484469" class="action-item"><div class="icon-box"><i class="fa-brands fa-whatsapp"></i></div><span>WHATSAPP</span></a>
+        <a href="https://www.aksswadhin.com" class="action-item"><div class="icon-box"><i class="fa-solid fa-globe"></i></div><span>WEBSITE</span></a>
+    </div>
+
+    <!-- DOCS + PAYMENT ROW -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:4px 25px 10px;">
+        <!-- MY DOCUMENTS BUTTON -->
+        <div class="action-item" onclick="openDocPage()" style="flex-direction:column;cursor:pointer;position:relative;">
+            <div class="icon-box" style="width:100%;height:58px;border-radius:20px;background:linear-gradient(135deg,#1a1aec,#00d4aa);box-shadow:0 8px 25px rgba(26,26,236,0.35);">
+                <i class="fa-solid fa-folder-open" style="color:#fff;font-size:1.4rem;position:relative;z-index:1;"></i>
+                <span id="docBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#f0c040;color:#0b1e4b;font-size:0.6rem;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff;"></span>
+            </div>
+            <span style="font-size:0.65rem;font-weight:800;color:var(--secondary);letter-spacing:1px;margin-top:8px;">MY DOCS</span>
+        </div>
+        <!-- SECURE PAYMENTS BUTTON -->
+        <div class="action-item" onclick="document.querySelector('.payment-area').scrollIntoView({behavior:'smooth',block:'center'})" style="flex-direction:column;cursor:pointer;">
+            <div class="icon-box" style="width:100%;height:58px;border-radius:20px;">
+                <i class="fa-solid fa-credit-card" style="position:relative;z-index:1;"></i>
+            </div>
+            <span style="font-size:0.65rem;font-weight:800;color:var(--secondary);letter-spacing:1px;margin-top:8px;">PAYMENTS</span>
+        </div>
+    </div>
+
+    <!-- SOCIAL BAR -->
+    <div class="social-bar">
+        <a href="https://www.facebook.com/aksshadhin" target="_blank" class="social-icon fb"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" target="_blank" class="social-icon ig"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" target="_blank" class="social-icon in"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" target="_blank" class="social-icon yt"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+
+    <!-- SAVE BUTTON -->
+    <div class="save-section">
+        <button onclick="downloadCardPDF()" id="pdfBtn" class="btn-save">
+            <i class="fa-solid fa-id-card"></i> <span>SAVE BUSINESS CARD (PDF)</span>
+        </button>
+    </div>
+
+    <!-- EXPERT SERVICES -->
+    <h2 class="section-label reveal"><i class="fa-solid fa-stars"></i> Expert Services</h2>
+    <div class="services-wrapper">
+
+        <div class="service-card" onclick="openService('entrepreneur')">
+            <div class="service-icon-wrap"><i class="solar:crown-star-linear"></i></div>
+            <h3>Quintessence Group</h3>
+            <p>The central strategic platform — defining vision, governance, and long-term expansion across the entire ecosystem.</p>
+            <div class="tap-hint"><i class="fa-solid fa-arrow-right"></i> Tap to explore</div>
+        </div>
+
+        <div class="service-card" onclick="openService('cricket')">
+            <div class="service-icon-wrap"><i class="fa-solid fa-arrow-right"></i></i></div>
+            <h3>Professional Sports Mentorship</h3>
+            <p>Providing expert guidance and technical training for aspiring national-level cricketers.</p>
+            <div class="tap-hint"><i class="fa-solid fa-arrow-right"></i> Tap to explore</div>
+        </div>
+
+        <div class="service-card" onclick="openService('strategy')">
+            <div class="service-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>Happy Solutions</h3>
+            <p>Delivering adaptive, solution-oriented services with a focus on efficiency and sustained client value.</p>
+            <div class="tap-hint"><i class="fa-solid fa-arrow-right"></i> Tap to explore</div>
+        </div>
+
+        <div class="service-card" onclick="openService('social')">
+            <div class="service-icon-wrap"><i class="fa-solid fa-handshake-angle"></i></div>
+            <h3>Social Impact & Advocacy</h3>
+            <p>Leading the 'Advancing Bangladesh' initiative to empower youth and foster national development.</p>
+            <div class="tap-hint"><i class="fa-solid fa-arrow-right"></i> Tap to explore</div>
+        </div>
+
+        <div class="service-card" onclick="openService('speaking')">
+            <div class="service-icon-wrap"><i class="fa-solid fa-microphone-lines"></i></div>
+            <h3>Public Speaking</h3>
+            <p>Keynote sessions on leadership, sports mindset, and building successful business ecosystems.</p>
+            <div class="tap-hint"><i class="fa-solid fa-arrow-right"></i> Tap to explore</div>
+        </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="payment-area reveal">
+        <h2 class="section-label"><i class="fa-solid fa-credit-card"></i> Secure Payments</h2>
+        <div class="tabs-nav">
+            <button class="tab-trigger active" onclick="openTab(event,'qr')">QR CODE</button>
+            <button class="tab-trigger" onclick="openTab(event,'bank')">BANK TRANSFER</button>
+        </div>
+        <div id="qr" class="tab-pane active">
+            <img src="https://i.ibb.co/zHCzp6r7/aksswadhin.png" style="width:160px;border-radius:15px;box-shadow:0 10px 30px rgba(26,26,236,0.2);" alt="QR">
+            <p style="margin-top:15px;font-weight:700;font-size:0.8rem;color:var(--text-light);letter-spacing:1px;">SCAN TO PAY VIA ANY APP</p>
+        </div>
+        <div id="bank" class="tab-pane" style="text-align:left;">
+            <div style="margin-bottom:14px;"><small style="color:var(--text-light);letter-spacing:1px;font-size:0.75rem;">BANK NAME</small><br><strong style="color:var(--secondary);">DUTCH BANGLA BANK</strong></div>
+            <div style="margin-bottom:14px;"><small style="color:var(--text-light);letter-spacing:1px;font-size:0.75rem;">ACCOUNT NO</small><br><strong style="color:var(--secondary);">1561070021415</strong></div>
+            <div><small style="color:var(--text-light);letter-spacing:1px;font-size:0.75rem;">CARD TYPE</small><br><strong style="color:var(--secondary);">VISA</strong></div>
+        </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form reveal">
+        <h2 class="section-label"><i class="fa-solid fa-paper-plane"></i> Quick Inquiry</h2>
+        <form action="https://formsubmit.co/mkssourov@yahoo.com" method="POST">
+            <div class="input-group"><input type="text" name="name" placeholder="Full Name" required></div>
+            <div class="input-group"><input type="email" name="email" placeholder="Email Address" required></div>
+            <div class="input-group"><textarea name="message" placeholder="Your message..." rows="3" required></textarea></div>
+            <input type="hidden" name="_captcha" value="false">
+            <button type="submit" class="btn-save" style="margin-top:5px;"><i class="fa-solid fa-paper-plane"></i> <span>SEND MESSAGE</span></button>
+        </form>
+    </div>
+
+    <!-- MAP -->
+    <div class="map-box reveal">
+        <h2 class="section-label"><i class="fa-solid fa-location-dot"></i> Location</h2>
+        <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117964.67722897!2d90.33943!3d23.7753634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1" allowfullscreen loading="lazy"></iframe>
+    </div>
+</div>
+
+<!-- ===== SERVICE DETAIL PAGES ===== -->
+
+<!-- 1. ENTREPRENEUR -->
+<div class="service-page" id="sp-entrepreneur">
+    <div class="sp-header">
+        <div class="sp-back" onclick="closeService('entrepreneur')"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="sp-header-title">ENTREPRENEUR & VISIONARY</div>
+    </div>
+    <div class="sp-hero">
+        <img class="sp-hero-img" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80" alt="">
+        <div class="sp-hero-overlay"></div>
+        <div class="sp-hero-content">
+            <div class="sp-hero-icon"><i class="fa-solid fa-rocket"></i></div>
+            <h1>Entrepreneur & Visionary Leader</h1>
+            <p class="sp-subtitle">Building empires, creating legacies</p>
+        </div>
+    </div>
+    <div class="sp-body">
+        <p class="sp-desc">AKS Swadhin is the driving force behind multiple thriving business ventures. As Chairman of Quintessence Group, he has pioneered a new era of entrepreneurship in Bangladesh — combining strategic foresight, bold vision, and relentless execution to build businesses that create lasting impact.</p>
+
+        <div class="sp-section-title"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> Core Competencies</div>
+        <div class="sp-features">
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-sitemap"></i></div><p>Multi-company leadership & group management</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-seedling"></i></div><p>Business formation & startup scaling</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-globe"></i></div><p>International market expansion strategy</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-users-gear"></i></div><p>Team building & organizational culture</p></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-images" style="color:var(--accent)"></i> Gallery</div>
+        <div class="sp-images">
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-play-circle" style="color:var(--accent)"></i> Featured Video</div>
+        <div class="sp-video-wrap">
+            <div class="sp-video-label">▶ &nbsp;ENTREPRENEURSHIP MASTERCLASS</div>
+            <iframe src="https://www.youtube.com/embed/ZoqgAy3h4OM" allowfullscreen></iframe>
+        </div>
+
+        <div class="sp-cta">
+            <p>Ready to build something extraordinary together?</p>
+            <a href="https://wa.me/8801784484469" class="sp-cta-btn"><i class="fa-brands fa-whatsapp" style="margin-right:8px;"></i>Connect on WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<!-- 2. CRICKET -->
+<div class="service-page" id="sp-cricket">
+    <div class="sp-header">
+        <div class="sp-back" onclick="closeService('cricket')"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="sp-header-title">SPORTS MENTORSHIP</div>
+    </div>
+    <div class="sp-hero">
+        <img class="sp-hero-img" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80" alt="">
+        <div class="sp-hero-overlay"></div>
+        <div class="sp-hero-content">
+            <div class="sp-hero-icon"><i class="fa-solid fa-cricket-bat-ball"></i></div>
+            <h1>Professional Sports Mentorship</h1>
+            <p class="sp-subtitle">Shaping champions of tomorrow</p>
+        </div>
+    </div>
+    <div class="sp-body">
+        <p class="sp-desc">A National Level Cricketer himself, AKS Swadhin brings unparalleled hands-on experience to his mentorship programs. He provides technical coaching, mental strength training, and career guidance to aspiring cricketers — helping them break into district, divisional, and national-level competitions.</p>
+
+        <div class="sp-section-title"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> What You'll Learn</div>
+        <div class="sp-features">
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-baseball"></i></div><p>Advanced batting & bowling techniques</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-brain"></i></div><p>Sports psychology & mental conditioning</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-dumbbell"></i></div><p>Fitness & athletic performance training</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-trophy"></i></div><p>Match preparation & strategy sessions</p></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-images" style="color:var(--accent)"></i> Gallery</div>
+        <div class="sp-images">
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1593341646782-e0b495cff86d?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1580748895894-93c0c5fc99cb?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-play-circle" style="color:var(--accent)"></i> Training Highlights</div>
+        <div class="sp-video-wrap">
+            <div class="sp-video-label">▶ &nbsp;CRICKET COACHING SESSION</div>
+            <iframe src="https://www.youtube.com/embed/KuBYh_0DQB4" allowfullscreen></iframe>
+        </div>
+
+        <div class="sp-cta">
+            <p>Ready to elevate your cricket career?</p>
+            <a href="https://wa.me/8801784484469" class="sp-cta-btn"><i class="fa-solid fa-phone" style="margin-right:8px;"></i>Book a Session</a>
+        </div>
+    </div>
+</div>
+
+<!-- 3. CORPORATE STRATEGY -->
+<div class="service-page" id="sp-strategy">
+    <div class="sp-header">
+        <div class="sp-back" onclick="closeService('strategy')"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="sp-header-title">CORPORATE STRATEGY</div>
+    </div>
+    <div class="sp-hero">
+        <img class="sp-hero-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="">
+        <div class="sp-hero-overlay"></div>
+        <div class="sp-hero-content">
+            <div class="sp-hero-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h1>Corporate Strategy</h1>
+            <p class="sp-subtitle">Scale. Dominate. Excel.</p>
+        </div>
+    </div>
+    <div class="sp-body">
+        <p class="sp-desc">With years of experience running multiple enterprises, AKS Swadhin delivers razor-sharp corporate strategy consulting. From market entry analysis to organizational restructuring, he helps businesses of all sizes unlock their true potential and achieve exponential growth in competitive markets.</p>
+
+        <div class="sp-section-title"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> Services Offered</div>
+        <div class="sp-features">
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div><p>Market research & competitive analysis</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-arrows-to-dot"></i></div><p>Business model design & optimization</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-building"></i></div><p>Operational excellence frameworks</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-chart-pie"></i></div><p>Revenue growth & P&L management</p></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-images" style="color:var(--accent)"></i> Gallery</div>
+        <div class="sp-images">
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-play-circle" style="color:var(--accent)"></i> Strategy Talk</div>
+        <div class="sp-video-wrap">
+            <div class="sp-video-label">▶ &nbsp;BUSINESS STRATEGY INSIGHTS</div>
+            <iframe src="https://www.youtube.com/embed/mZGrNBFnjuU" allowfullscreen></iframe>
+        </div>
+
+        <div class="sp-cta">
+            <p>Let's craft your winning strategy together.</p>
+            <a href="/cdn-cgi/l/email-protection#9af7f1e9e9f5efe8f5ecdae3fbf2f5f5b4f9f5f7" class="sp-cta-btn"><i class="fa-solid fa-envelope" style="margin-right:8px;"></i>Get a Consultation</a>
+        </div>
+    </div>
+</div>
+
+<!-- 4. SOCIAL IMPACT -->
+<div class="service-page" id="sp-social">
+    <div class="sp-header">
+        <div class="sp-back" onclick="closeService('social')"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="sp-header-title">SOCIAL IMPACT</div>
+    </div>
+    <div class="sp-hero">
+        <img class="sp-hero-img" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="">
+        <div class="sp-hero-overlay"></div>
+        <div class="sp-hero-content">
+            <div class="sp-hero-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+            <h1>Social Impact & Advocacy</h1>
+            <p class="sp-subtitle">Empowering Bangladesh's next generation</p>
+        </div>
+    </div>
+    <div class="sp-body">
+        <p class="sp-desc">AKS Swadhin leads the 'Advancing Bangladesh' initiative — a transformative movement dedicated to empowering youth, fostering education, and driving inclusive national development. His advocacy work spans across rural communities, urban youth programs, and policy-level engagement with government bodies.</p>
+
+        <div class="sp-section-title"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> Impact Areas</div>
+        <div class="sp-features">
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-graduation-cap"></i></div><p>Youth education & scholarship programs</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-hands-holding-circle"></i></div><p>Community empowerment initiatives</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-flag"></i></div><p>National development advocacy</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-lightbulb"></i></div><p>Innovation & startup mentorship hubs</p></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-images" style="color:var(--accent)"></i> Gallery</div>
+        <div class="sp-images">
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1536337005238-94b997371b40?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-play-circle" style="color:var(--accent)"></i> Documentary</div>
+        <div class="sp-video-wrap">
+            <div class="sp-video-label">▶ &nbsp;ADVANCING BANGLADESH — INITIATIVE OVERVIEW</div>
+            <iframe src="https://www.youtube.com/embed/AaA6bKayC6E" allowfullscreen></iframe>
+        </div>
+
+        <div class="sp-cta">
+            <p>Want to join the movement?</p>
+            <a href="https://www.facebook.com/aksshadhin" class="sp-cta-btn"><i class="fa-brands fa-facebook" style="margin-right:8px;"></i>Join the Community</a>
+        </div>
+    </div>
+</div>
+
+<!-- 5. PUBLIC SPEAKING -->
+<div class="service-page" id="sp-speaking">
+    <div class="sp-header">
+        <div class="sp-back" onclick="closeService('speaking')"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="sp-header-title">PUBLIC SPEAKING</div>
+    </div>
+    <div class="sp-hero">
+        <img class="sp-hero-img" src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80" alt="">
+        <div class="sp-hero-overlay"></div>
+        <div class="sp-hero-content">
+            <div class="sp-hero-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+            <h1>Public Speaking</h1>
+            <p class="sp-subtitle">Words that inspire. Stories that move.</p>
+        </div>
+    </div>
+    <div class="sp-body">
+        <p class="sp-desc">AKS Swadhin is a compelling keynote speaker whose talks blend real-world entrepreneurial experience with the mental discipline of a national athlete. His sessions on leadership, resilience, and business ecosystems have inspired hundreds of students, professionals, and executives across Bangladesh and beyond.</p>
+
+        <div class="sp-section-title"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> Speaking Topics</div>
+        <div class="sp-features">
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-crown"></i></div><p>Leadership & building high-performance teams</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-medal"></i></div><p>Sports mindset applied to business</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-fire"></i></div><p>Resilience & overcoming adversity</p></div>
+            <div class="sp-feature"><div class="sp-feature-icon"><i class="fa-solid fa-compass"></i></div><p>Vision, purpose & entrepreneurial journey</p></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-images" style="color:var(--accent)"></i> Gallery</div>
+        <div class="sp-images">
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+            <div class="sp-img-item"><img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?w=400&q=80" alt=""><div class="sp-img-overlay"></div></div>
+        </div>
+
+        <div class="sp-section-title"><i class="fa-solid fa-play-circle" style="color:var(--accent)"></i> Speaking Reel</div>
+        <div class="sp-video-wrap">
+            <div class="sp-video-label">▶ &nbsp;KEYNOTE SPEAKING HIGHLIGHTS</div>
+            <iframe src="https://www.youtube.com/embed/Unzc731iCUY" allowfullscreen></iframe>
+        </div>
+
+        <div class="sp-cta">
+            <p>Book AKS Swadhin for your next event.</p>
+            <a href="/cdn-cgi/l/email-protection#0d60667e7e62787f627b4d746c656262236e6260" class="sp-cta-btn"><i class="fa-solid fa-calendar" style="margin-right:8px;"></i>Book a Speaking Slot</a>
+        </div>
+    </div>
+</div>
+
+<!-- PDF TEMPLATE -->
+<div id="pdf-template">
+    <div class="pdf-business-card" id="cardExport">
+        <div class="pdf-stripe"></div>
+        <div class=""></div>
+        <div class="pdf-left">
+            <div class="pdf-avatar-wrap">
+                <img src="https://i.ibb.co/6Gcps52/Whats-App-Image-2026-04-05-at-12-10-53-AM.jpg" alt="AKS Swadhin" class="pdf-profile-img" crossorigin="anonymous">
+            </div>
+            <p class="pdf-name">AKS SWADHIN</p>
+            <p class="pdf-title">🏏 NATIONAL LEVEL CRICKETER</p>
+            <div class="pdf-divider"></div>
+            <div class="pdf-bio">
+                <p><i class="fa-solid fa-award"></i> Chairman, Quintessence Group</p>
+                <p><i class=""></i></p>
+                <p><i class="fa-solid fa-location-dot"></i> Dhaka, Bangladesh</p>
+            </div>
+        </div>
+        <div class="pdf-right">
+            <div class="pdf-right-top">
+                <div class="pdf-contact-info">
+                    <p class="pdf-contact-info-title">Contact Information</p>
+                    <p><span class="pdf-contact-icon"><i class="fa-solid fa-phone"></i></span> +88 01784484469</p>
+                    <p><span class="pdf-contact-icon" style="background:linear-gradient(135deg,#25D366,#128C7E);"><i class="fa-brands fa-whatsapp"></i></span> +88 01784484469</p>
+                    <p><span class="pdf-contact-icon" style="background:linear-gradient(135deg,#ea4335,#c23321);"><i class="fa-solid fa-envelope"></i></span> hello.aksswadhin@gmail.com</p>
+                    <p><span class="pdf-contact-icon" style="background:linear-gradient(135deg,#00d4aa,#009977);"><i class="fa-solid fa-globe"></i></span> www.aksswadhin.com</p>
+                </div>
+                <div class="pdf-qr-side">
+                    <div class="pdf-qr-container">
+                        <img src="https://i.ibb.co/zHCzp6r7/aksswadhin.png" class="pdf-qr" alt="QR Code" crossorigin="anonymous">
+                        <p class="pdf-qr-label">SCAN TO CONNECT</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pdf-bottom-bar">
+                <div class="pdf-stats">
+                    <div class="pdf-stat"><div class="pdf-stat-num">10+</div><div class="pdf-stat-label">Years Exp.</div></div>
+                    <div class="pdf-stat"><div class="pdf-stat-num">500+</div><div class="pdf-stat-label">Projects</div></div>
+                    <div class="pdf-stat"><div class="pdf-stat-num">100+</div><div class="pdf-stat-label">Partners</div></div>
+                </div>
+                <div class="pdf-website">www.<span>aksswadhin</span>.com</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== DOCUMENTS FULL PAGE ===== -->
+<div class="service-page" id="sp-documents">
+    <div class="sp-header">
+        <div class="sp-back" onclick="closeDocPage()"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="sp-header-title">MY DOCUMENTS</div>
+        <button onclick="openUploadModal()" style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#1a1aec,#00d4aa);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(26,26,236,0.4);flex-shrink:0;"><i class="fa-solid fa-plus"></i></button>
+    </div>
+
+    <!-- Hero Banner -->
+    <div style="background:linear-gradient(135deg,#0b1e4b,#1a1aec,#00695c);padding:28px 25px 24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(0,212,170,0.12);border-radius:50%;"></div>
+        <div style="position:absolute;bottom:-30px;left:-20px;width:120px;height:120px;background:rgba(240,192,64,0.1);border-radius:50%;"></div>
+        <div style="position:relative;z-index:2;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+                <div style="width:50px;height:50px;border-radius:16px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🗂️</div>
+                <div>
+                    <div style="color:#fff;font-weight:800;font-size:1.1rem;letter-spacing:1px;">Digital Document Vault</div>
+                    <div style="color:rgba(255,255,255,0.6);font-size:0.78rem;margin-top:2px;">সব গুরুত্বপূর্ণ কাগজপত্র এক জায়গায়</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+                <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;color:rgba(255,255,255,0.85);font-size:0.7rem;font-weight:700;"><i class="fa-solid fa-shield-halved" style="margin-right:5px;color:#00d4aa;"></i>Secure & Private</div>
+                <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;color:rgba(255,255,255,0.85);font-size:0.7rem;font-weight:700;"><i class="fa-solid fa-print" style="margin-right:5px;color:#f0c040;"></i>Print Anytime</div>
+                <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;color:rgba(255,255,255,0.85);font-size:0.7rem;font-weight:700;"><i class="fa-solid fa-database" style="margin-right:5px;color:#a78bfa;"></i>Always Saved</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="docsEmptyState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 30px;text-align:center;">
+        <div style="width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,rgba(26,26,236,0.1),rgba(0,212,170,0.1));display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin-bottom:20px;">📂</div>
+        <div style="font-weight:800;font-size:1rem;color:#0b1e4b;margin-bottom:8px;">কোনো ডকুমেন্ট নেই</div>
+        <div style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:24px;">+ বাটন চাপুন এবং আপনার প্রথম ডকুমেন্ট যোগ করুন</div>
+        <button onclick="openUploadModal()" style="padding:14px 28px;border:none;border-radius:16px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 8px 25px rgba(26,26,236,0.35);">
+            <i class="fa-solid fa-plus"></i> প্রথম ডকুমেন্ট যোগ করুন
+        </button>
+    </div>
+
+    <!-- Documents Grid -->
+    <div id="docsPageGrid" style="display:none;padding:20px 18px 100px;display:grid;grid-template-columns:1fr 1fr;gap:14px;"></div>
+
+    <!-- Floating Add Button -->
+    <button onclick="openUploadModal()" style="position:fixed;bottom:28px;right:24px;width:58px;height:58px;border-radius:20px;border:none;background:linear-gradient(135deg,#1a1aec,#00d4aa);color:#fff;font-size:1.3rem;cursor:pointer;box-shadow:0 10px 30px rgba(26,26,236,0.5);display:flex;align-items:center;justify-content:center;z-index:10;transition:transform 0.3s;" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</div>
+
+<!-- ===== DOCUMENT VIEWER ===== -->
+<div id="docViewerOverlay" style="position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s;">
+    <div style="display:flex;align-items:center;padding:16px 18px;background:rgba(7,7,20,0.95);border-bottom:1px solid rgba(255,255,255,0.08);gap:12px;flex-shrink:0;">
+        <button onclick="closeDocViewer()" style="width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-arrow-left"></i></button>
+        <div id="docViewerTitle" style="color:#fff;font-weight:700;font-size:0.9rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+        <button onclick="downloadCurrentDoc()" style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#1a1aec,#4f46e5);border:none;color:#fff;font-size:0.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-download"></i></button>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto;">
+        <img id="docViewerImg" style="max-width:100%;max-height:100%;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.5);" src="" alt="">
+    </div>
+    <div style="display:flex;gap:12px;padding:16px 18px;background:rgba(7,7,20,0.95);border-top:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
+        <button onclick="printCurrentDoc()" style="flex:1;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(22,163,74,0.4);letter-spacing:1px;">
+            <i class="fa-solid fa-print"></i> প্রিন্ট করুন
+        </button>
+        <button onclick="downloadCurrentDoc()" style="flex:1;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(26,26,236,0.4);letter-spacing:1px;">
+            <i class="fa-solid fa-download"></i> ডাউনলোড
+        </button>
+    </div>
+</div>
+
+<!-- ===== UPLOAD / EDIT MODAL ===== -->
+<div id="uploadModal" style="position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,0.82);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity 0.3s;">
+    <div id="uploadSheet" style="width:100%;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:30px 30px 0 0;padding:24px 22px 38px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);">
+        <div style="width:40px;height:4px;border-radius:2px;background:rgba(26,26,236,0.2);margin:0 auto 20px;"></div>
+        <div id="uploadModalTitle" style="font-weight:900;font-size:1.05rem;color:#0b1e4b;margin-bottom:4px;font-family:'Cinzel',serif;"><i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-bottom:18px;">ড্রাইভিং লাইসেন্স, ট্রেড লাইসেন্স, গাড়ির কাগজ ইত্যাদি</div>
+
+        <input type="text" id="docNameInput" placeholder="ডকুমেন্টের নাম (যেমন: Driving License)" style="width:100%;padding:14px 16px;border-radius:14px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;color:#0f172a;margin-bottom:13px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+
+        <div id="uploadDropArea" onclick="document.getElementById('docFileInput').click()" style="border:2px dashed rgba(26,26,236,0.3);border-radius:18px;padding:26px 16px;text-align:center;cursor:pointer;background:linear-gradient(135deg,rgba(26,26,236,0.03),rgba(0,212,170,0.03));margin-bottom:13px;transition:all 0.3s;">
+            <div style="font-size:2.2rem;color:#1a1aec;margin-bottom:8px;"><i class="fa-solid fa-image"></i></div>
+            <div style="font-weight:700;color:#0b1e4b;font-size:0.88rem;margin-bottom:4px;">ছবি সিলেক্ট করুন</div>
+            <div style="font-size:0.72rem;color:#64748b;">JPG · PNG · WEBP সাপোর্টেড</div>
+        </div>
+        <img id="uploadPreview" style="width:100%;max-height:180px;border-radius:14px;object-fit:contain;background:#f0f4ff;display:none;margin-bottom:13px;" alt="Preview">
+        <input type="file" id="docFileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+        <input type="hidden" id="editDocId" value="">
+
+        <button onclick="saveDocument()" style="width:100%;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.92rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 10px 28px rgba(26,26,236,0.4);margin-bottom:10px;letter-spacing:0.5px;">
+            <i class="fa-solid fa-floppy-disk"></i> <span id="saveBtnText">ডকুমেন্ট সেভ করুন</span>
+        </button>
+        <button onclick="closeUploadModal()" style="width:100%;padding:12px;border:none;border-radius:14px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.85rem;cursor:pointer;">বাতিল করুন</button>
+    </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+/* ===== PARTICLES ===== */
+(function() {
+    const container = document.getElementById('particles');
+    const colors = ['rgba(79,70,229,0.6)','rgba(0,212,170,0.4)','rgba(240,192,64,0.3)','rgba(99,102,241,0.5)'];
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 6 + 2;
+        p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
+        container.appendChild(p);
+    }
+})();
+
+/* ===== SCROLL REVEAL ===== */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ===== TAB SWITCHING ===== */
+function openTab(evt, tabName) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+/* ===== SERVICE PAGES ===== */
+function openService(id) {
+    const page = document.getElementById('sp-' + id);
+    if (!page) return;
+    page.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    page.scrollTop = 0;
+}
+function closeService(id) {
+    document.getElementById('sp-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+}
+window.addEventListener('popstate', () => {
+    document.querySelectorAll('.service-page.open').forEach(p => p.classList.remove('open'));
+    document.body.style.overflow = '';
+});
+
+/* ===================================================================
+   DOCUMENT MANAGER — IndexedDB (Persistent, Refresh-Safe)
+=================================================================== */
+const DB_NAME = 'AKSDocVault';
+const DB_VER  = 1;
+const STORE   = 'documents';
+let db = null;
+
+function initDB() {
+    return new Promise((resolve, reject) => {
+        if (db) { resolve(db); return; }
+        const req = indexedDB.open(DB_NAME, DB_VER);
+        req.onupgradeneeded = e => {
+            const d = e.target.result;
+            if (!d.objectStoreNames.contains(STORE)) {
+                const store = d.createObjectStore(STORE, { keyPath: 'id' });
+                store.createIndex('date', 'date', { unique: false });
+            }
+        };
+        req.onsuccess = e => { db = e.target.result; resolve(db); };
+        req.onerror   = e => reject(e.target.error);
+    });
+}
+
+function dbGetAll() {
+    return initDB().then(d => new Promise((res, rej) => {
+        const tx = d.transaction(STORE, 'readonly');
+        const req = tx.objectStore(STORE).getAll();
+        req.onsuccess = e => res(e.target.result || []);
+        req.onerror   = e => rej(e.target.error);
+    }));
+}
+
+function dbPut(doc) {
+    return initDB().then(d => new Promise((res, rej) => {
+        const tx = d.transaction(STORE, 'readwrite');
+        const req = tx.objectStore(STORE).put(doc);
+        req.onsuccess = () => res();
+        req.onerror   = e => rej(e.target.error);
+    }));
+}
+
+function dbDelete(id) {
+    return initDB().then(d => new Promise((res, rej) => {
+        const tx = d.transaction(STORE, 'readwrite');
+        const req = tx.objectStore(STORE).delete(id);
+        req.onsuccess = () => res();
+        req.onerror   = e => rej(e.target.error);
+    }));
+}
+
+/* ===== RENDER DOCUMENTS ===== */
+async function renderDocsPage() {
+    const docs = await dbGetAll();
+    const grid  = document.getElementById('docsPageGrid');
+    const empty = document.getElementById('docsEmptyState');
+    const badge = document.getElementById('docBadge');
+
+    // Badge
+    if (docs.length > 0) {
+        badge.textContent = docs.length;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+
+    if (docs.length === 0) {
+        empty.style.display = 'flex';
+        grid.style.display  = 'none';
+        return;
+    }
+    empty.style.display = 'none';
+    grid.style.display  = 'grid';
+    grid.innerHTML = '';
+
+    docs.sort((a,b) => b.id - a.id).forEach(doc => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:linear-gradient(135deg,#fff,#f0f4ff);border-radius:20px;border:1px solid rgba(26,26,236,0.1);box-shadow:0 6px 20px rgba(26,26,236,0.1);overflow:hidden;position:relative;';
+        card.innerHTML = `
+            <img src="${doc.data}" alt="${doc.name}" style="width:100%;height:105px;object-fit:cover;display:block;cursor:pointer;" onclick="viewDoc('${doc.id}')">
+            <div style="padding:10px 11px 4px;">
+                <div style="font-weight:800;font-size:0.73rem;color:#0b1e4b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${doc.name}">${doc.name}</div>
+                <div style="font-size:0.62rem;color:#64748b;margin-top:2px;"><i class="fa-solid fa-calendar-days" style="margin-right:3px;"></i>${doc.date}</div>
+            </div>
+            <div style="display:flex;gap:5px;padding:7px 10px 11px;">
+                <button onclick="viewDoc('${doc.id}')" style="flex:1;padding:7px 4px;border:none;border-radius:10px;background:linear-gradient(135deg,#e8eeff,#f0f4ff);color:#1a1aec;font-size:0.65rem;font-weight:700;cursor:pointer;border:1px solid rgba(26,26,236,0.15);letter-spacing:0.3px;"><i class="fa-solid fa-eye"></i> দেখুন</button>
+                <button onclick="editDoc('${doc.id}')" style="flex:1;padding:7px 4px;border:none;border-radius:10px;background:linear-gradient(135deg,#fef9c3,#fef3c7);color:#92400e;font-size:0.65rem;font-weight:700;cursor:pointer;letter-spacing:0.3px;"><i class="fa-solid fa-pen"></i> বদলান</button>
+                <button onclick="deleteDoc('${doc.id}')" style="flex:0 0 auto;padding:7px 9px;border:none;border-radius:10px;background:rgba(220,38,38,0.1);color:#dc2626;font-size:0.65rem;font-weight:700;cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+/* ===== OPEN / CLOSE DOC PAGE ===== */
+function openDocPage() {
+    openService('documents');
+    renderDocsPage();
+}
+function closeDocPage() {
+    closeService('documents');
+}
+
+/* ===== VIEW DOC ===== */
+async function viewDoc(id) {
+    const docs = await dbGetAll();
+    const doc = docs.find(d => String(d.id) === String(id));
+    if (!doc) return;
+    window._currentDoc = doc;
+    document.getElementById('docViewerImg').src = doc.data;
+    document.getElementById('docViewerTitle').textContent = doc.name;
+    const overlay = document.getElementById('docViewerOverlay');
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'all';
+    document.body.style.overflow = 'hidden';
+}
+function closeDocViewer() {
+    const overlay = document.getElementById('docViewerOverlay');
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    window._currentDoc = null;
+}
+function downloadCurrentDoc() {
+    if (!window._currentDoc) return;
+    const link = document.createElement('a');
+    link.href = window._currentDoc.data;
+    link.download = window._currentDoc.name.replace(/\s+/g,'_') + '.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+function printCurrentDoc() {
+    if (!window._currentDoc) return;
+    const win = window.open('','_blank');
+    win.document.write(`<!DOCTYPE html><html><head><title>${window._currentDoc.name}</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff;}img{max-width:100%;max-height:100vh;object-fit:contain;}@media print{body{margin:0;}img{width:100%;height:auto;}}</style></head><body><img src="${window._currentDoc.data}" alt="${window._currentDoc.name}"><script>window.onload=function(){setTimeout(function(){window.print();},400);};<\/script></body></html>`);
+    win.document.close();
+}
+
+/* ===== DELETE DOC ===== */
+async function deleteDoc(id) {
+    if (!confirm('এই ডকুমেন্টটি ডিলিট করবেন?')) return;
+    await dbDelete(Number(id));
+    renderDocsPage();
+}
+
+/* ===== EDIT DOC ===== */
+async function editDoc(id) {
+    const docs = await dbGetAll();
+    const doc  = docs.find(d => String(d.id) === String(id));
+    if (!doc) return;
+    document.getElementById('editDocId').value = doc.id;
+    document.getElementById('docNameInput').value = doc.name;
+    document.getElementById('uploadModalTitle').innerHTML = '<i class="fa-solid fa-pen" style="color:#1a1aec;margin-right:8px;"></i>ডকুমেন্ট পরিবর্তন করুন';
+    document.getElementById('saveBtnText').textContent = 'পরিবর্তন সেভ করুন';
+    // Show existing image in preview
+    const preview = document.getElementById('uploadPreview');
+    preview.src = doc.data;
+    preview.style.display = 'block';
+    document.getElementById('uploadDropArea').style.display = 'none';
+    window._editData = doc.data; // keep old image if no new one selected
+    openUploadModal(true);
+}
+
+/* ===== UPLOAD MODAL ===== */
+let _selectedFileData = null;
+
+function openUploadModal(isEdit = false) {
+    if (!isEdit) {
+        document.getElementById('editDocId').value = '';
+        document.getElementById('docNameInput').value = '';
+        document.getElementById('uploadPreview').style.display = 'none';
+        document.getElementById('uploadPreview').src = '';
+        document.getElementById('uploadDropArea').style.display = 'block';
+        document.getElementById('docFileInput').value = '';
+        document.getElementById('uploadModalTitle').innerHTML = '<i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন';
+        document.getElementById('saveBtnText').textContent = 'ডকুমেন্ট সেভ করুন';
+        _selectedFileData = null;
+        window._editData  = null;
+    }
+    const modal = document.getElementById('uploadModal');
+    const sheet = document.getElementById('uploadSheet');
+    modal.style.opacity = '1';
+    modal.style.pointerEvents = 'all';
+    sheet.style.transform = 'translateY(0)';
+    document.body.style.overflow = 'hidden';
+}
+function closeUploadModal() {
+    const modal = document.getElementById('uploadModal');
+    const sheet = document.getElementById('uploadSheet');
+    modal.style.opacity = '0';
+    modal.style.pointerEvents = 'none';
+    sheet.style.transform = 'translateY(100%)';
+    document.body.style.overflow = '';
+    _selectedFileData = null;
+}
+function handleFileSelect(evt) {
+    const file = evt.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        _selectedFileData = e.target.result;
+        const preview = document.getElementById('uploadPreview');
+        preview.src = _selectedFileData;
+        preview.style.display = 'block';
+        document.getElementById('uploadDropArea').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+}
+
+async function saveDocument() {
+    const name   = document.getElementById('docNameInput').value.trim();
+    const editId = document.getElementById('editDocId').value;
+    const imgData = _selectedFileData || window._editData;
+
+    if (!name)    { alert('ডকুমেন্টের নাম লিখুন!'); return; }
+    if (!imgData) { alert('একটি ছবি সিলেক্ট করুন!'); return; }
+
+    const now    = new Date();
+    const dateStr = now.toLocaleDateString('bn-BD', { year:'numeric', month:'short', day:'numeric' });
+    const doc = {
+        id:   editId ? Number(editId) : Date.now(),
+        name,
+        data: imgData,
+        date: editId ? (await dbGetAll()).find(d=>String(d.id)===String(editId))?.date || dateStr : dateStr
+    };
+    await dbPut(doc);
+    closeUploadModal();
+    renderDocsPage();
+}
+
+/* ===== DRAG & DROP ===== */
+document.addEventListener('DOMContentLoaded', function() {
+    renderDocsPage(); // init badge on load
+    const drop = document.getElementById('uploadDropArea');
+    drop.addEventListener('dragover', e => { e.preventDefault(); drop.style.borderColor='#1a1aec'; drop.style.background='rgba(26,26,236,0.08)'; });
+    drop.addEventListener('dragleave', () => { drop.style.borderColor=''; drop.style.background=''; });
+    drop.addEventListener('drop', e => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const r = new FileReader();
+            r.onload = ev => {
+                _selectedFileData = ev.target.result;
+                document.getElementById('uploadPreview').src = _selectedFileData;
+                document.getElementById('uploadPreview').style.display = 'block';
+                drop.style.display = 'none';
+            };
+            r.readAsDataURL(file);
+        }
+    });
+    document.getElementById('uploadModal').addEventListener('click', function(e) {
+        if (e.target === this) closeUploadModal();
+    });
+});
+
+/* ===== PDF DOWNLOAD ===== */
+async function downloadCardPDF() {
+    const btn = document.getElementById('pdfBtn');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>GENERATING...</span>';
+    btn.disabled = true;
+    try {
+        const card = document.getElementById('cardExport');
+        const CARD_W = 1050, CARD_H = 600;
+        const template = document.getElementById('pdf-template');
+        template.style.cssText = 'position:fixed;left:0;top:0;z-index:-1;opacity:1;visibility:visible;';
+        const images = card.querySelectorAll('img');
+        await Promise.all(Array.from(images).map(img => img.complete ? Promise.resolve() : new Promise(res => { img.onload = res; img.onerror = res; })));
+        await new Promise(r => setTimeout(r, 400));
+        const canvas = await html2canvas(card, { scale:2, useCORS:true, allowTaint:true, logging:false, width:CARD_W, height:CARD_H, scrollX:0, scrollY:0, backgroundColor:null, imageTimeout:15000 });
+        template.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;visibility:hidden;';
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation:'landscape', unit:'mm', format:[279,159], compress:true });
+        pdf.addImage(canvas.toDataURL('image/jpeg',0.97), 'JPEG', 0, 0, 279, 159, '', 'FAST');
+        pdf.save('AKS_Swadhin_Business_Card.pdf');
+        btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> <span>DOWNLOADED!</span>';
+        btn.style.background = 'linear-gradient(135deg,#16a34a,#15803d)';
+        setTimeout(() => { btn.innerHTML = originalHTML; btn.style.background = ''; btn.disabled = false; }, 3000);
+    } catch(err) {
+        btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span>RETRY</span>';
+        btn.disabled = false;
+        setTimeout(() => { btn.innerHTML = originalHTML; }, 3000);
+    }
+}
+</script>
+</body>
+</html>
