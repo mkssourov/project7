@@ -527,22 +527,14 @@ body { background: radial-gradient(ellipse at 30% 20%, #0d0d2b 0%, #070714 60%, 
         <a href="https://www.aksswadhin.com" class="action-item"><div class="icon-box"><i class="fa-solid fa-globe"></i></div><span>WEBSITE</span></a>
     </div>
 
-    <!-- DOCS + PAYMENT ROW -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:4px 25px 10px;">
-        <!-- MY DOCUMENTS BUTTON -->
-        <div class="action-item" onclick="openDocPage()" style="flex-direction:column;cursor:pointer;position:relative;">
-            <div class="icon-box" style="width:100%;height:58px;border-radius:20px;background:linear-gradient(135deg,#1a1aec,#00d4aa);box-shadow:0 8px 25px rgba(26,26,236,0.35);">
-                <i class="fa-solid fa-folder-open" style="color:#fff;font-size:1.4rem;position:relative;z-index:1;"></i>
-                <span id="docBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#f0c040;color:#0b1e4b;font-size:0.6rem;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff;"></span>
+    <!-- MY DOCS CENTERED BUTTON -->
+    <div style="display:flex;justify-content:center;padding:4px 25px 10px;">
+        <div onclick="openDocPage()" style="display:flex;flex-direction:column;align-items:center;cursor:pointer;position:relative;">
+            <div style="height:56px;border-radius:20px;background:linear-gradient(135deg,#1a1aec,#00d4aa);box-shadow:0 8px 30px rgba(26,26,236,0.4);display:flex;align-items:center;justify-content:center;gap:10px;padding:0 30px;position:relative;transition:transform 0.3s,box-shadow 0.3s;" onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 40px rgba(26,26,236,0.55)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 30px rgba(26,26,236,0.4)'">
+                <i class="fa-solid fa-folder-open" style="color:#fff;font-size:1.25rem;"></i>
+                <span style="color:#fff;font-size:0.78rem;font-weight:800;letter-spacing:2px;">MY DOCUMENTS</span>
+                <span id="docBadge" style="display:none;position:absolute;top:-8px;right:-8px;background:#f0c040;color:#0b1e4b;font-size:0.58rem;font-weight:900;border-radius:50%;width:22px;height:22px;align-items:center;justify-content:center;border:2.5px solid #fff;"></span>
             </div>
-            <span style="font-size:0.65rem;font-weight:800;color:var(--secondary);letter-spacing:1px;margin-top:8px;">MY DOCS</span>
-        </div>
-        <!-- SECURE PAYMENTS BUTTON -->
-        <div class="action-item" onclick="document.querySelector('.payment-area').scrollIntoView({behavior:'smooth',block:'center'})">
-            <div class=>
-                <i class="fa-solid fa-credit-card" style="position:relative;z-index:1;"></i>
-            </div>
-
         </div>
     </div>
 
@@ -926,8 +918,118 @@ body { background: radial-gradient(ellipse at 30% 20%, #0d0d2b 0%, #070714 60%, 
     <div class="sp-header">
         <div class="sp-back" onclick="closeDocPage()"><i class="fa-solid fa-arrow-left"></i></div>
         <div class="sp-header-title">MY DOCUMENTS</div>
-        <button onclick="openUploadModal()" style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#1a1aec,#00d4aa);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(26,26,236,0.4);flex-shrink:0;"><i class="fa-solid fa-plus"></i></button>
+        <div style="display:flex;gap:8px;">
+            <button onclick="openChangePassModal()" title="পাসওয়ার্ড পরিবর্তন" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-key"></i></button>
+            <button onclick="openUploadModal()" style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#1a1aec,#00d4aa);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(26,26,236,0.4);flex-shrink:0;"><i class="fa-solid fa-plus"></i></button>
+        </div>
     </div>
+
+    <!-- Hero Banner -->
+    <div style="background:linear-gradient(135deg,#0b1e4b,#1a1aec,#00695c);padding:26px 22px 22px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(0,212,170,0.12);border-radius:50%;pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-30px;left:-20px;width:120px;height:120px;background:rgba(240,192,64,0.1);border-radius:50%;pointer-events:none;"></div>
+        <div style="position:relative;z-index:2;">
+            <div style="display:flex;align-items:center;gap:13px;margin-bottom:10px;">
+                <div style="width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🗂️</div>
+                <div>
+                    <div style="color:#fff;font-weight:800;font-size:1rem;letter-spacing:1px;">Digital Document Vault</div>
+                    <div style="color:rgba(255,255,255,0.6);font-size:0.75rem;margin-top:2px;">সব গুরুত্বপূর্ণ কাগজপত্র এক জায়গায়</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+                <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 11px;color:rgba(255,255,255,0.85);font-size:0.68rem;font-weight:700;"><i class="fa-solid fa-lock" style="margin-right:4px;color:#f0c040;"></i>Lock Protected</div>
+                <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 11px;color:rgba(255,255,255,0.85);font-size:0.68rem;font-weight:700;"><i class="fa-solid fa-print" style="margin-right:4px;color:#00d4aa;"></i>Print Anytime</div>
+                <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 11px;color:rgba(255,255,255,0.85);font-size:0.68rem;font-weight:700;"><i class="fa-solid fa-database" style="margin-right:4px;color:#a78bfa;"></i>Always Saved</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="docsEmptyState" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;text-align:center;">
+        <div style="width:78px;height:78px;border-radius:22px;background:linear-gradient(135deg,rgba(26,26,236,0.1),rgba(0,212,170,0.1));display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:18px;">📂</div>
+        <div style="font-weight:800;font-size:1rem;color:#0b1e4b;margin-bottom:7px;">কোনো ডকুমেন্ট নেই</div>
+        <div style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:22px;">+ বাটন চাপুন এবং প্রথম ডকুমেন্ট যোগ করুন</div>
+        <button onclick="openUploadModal()" style="padding:13px 26px;border:none;border-radius:14px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 8px 22px rgba(26,26,236,0.35);"><i class="fa-solid fa-plus"></i> প্রথম ডকুমেন্ট যোগ করুন</button>
+    </div>
+
+    <!-- Documents Grid -->
+    <div id="docsPageGrid" style="padding:18px 16px 100px;display:grid;grid-template-columns:1fr 1fr;gap:13px;"></div>
+
+    <!-- Floating Add -->
+    <button onclick="openUploadModal()" style="position:fixed;bottom:26px;right:22px;width:56px;height:56px;border-radius:18px;border:none;background:linear-gradient(135deg,#1a1aec,#00d4aa);color:#fff;font-size:1.25rem;cursor:pointer;box-shadow:0 10px 28px rgba(26,26,236,0.5);display:flex;align-items:center;justify-content:center;z-index:10;transition:transform 0.25s;" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'"><i class="fa-solid fa-plus"></i></button>
+</div>
+
+<!-- ===== DOCUMENT VIEWER ===== -->
+<div id="docViewerOverlay" style="position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.96);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s;">
+    <div style="display:flex;align-items:center;padding:15px 16px;background:rgba(7,7,20,0.97);border-bottom:1px solid rgba(255,255,255,0.08);gap:11px;flex-shrink:0;">
+        <button onclick="closeDocViewer()" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-arrow-left"></i></button>
+        <div id="docViewerTitle" style="color:#fff;font-weight:700;font-size:0.88rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+        <button onclick="downloadCurrentDoc()" style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#1a1aec,#4f46e5);border:none;color:#fff;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-download"></i></button>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto;">
+        <img id="docViewerImg" style="max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);" src="" alt="">
+    </div>
+    <div style="display:flex;gap:11px;padding:14px 16px;background:rgba(7,7,20,0.97);border-top:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
+        <button onclick="printCurrentDoc()" style="flex:1;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-weight:700;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 8px 20px rgba(22,163,74,0.4);letter-spacing:0.5px;"><i class="fa-solid fa-print"></i> প্রিন্ট করুন</button>
+        <button onclick="downloadCurrentDoc()" style="flex:1;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 8px 20px rgba(26,26,236,0.4);letter-spacing:0.5px;"><i class="fa-solid fa-download"></i> ডাউনলোড</button>
+    </div>
+</div>
+
+<!-- ===== UPLOAD / EDIT MODAL ===== -->
+<div id="uploadModal" style="position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,0.82);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity 0.3s;">
+    <div id="uploadSheet" style="width:100%;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:28px 28px 0 0;padding:22px 20px 36px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);max-height:92vh;overflow-y:auto;">
+        <div style="width:38px;height:4px;border-radius:2px;background:rgba(26,26,236,0.18);margin:0 auto 18px;"></div>
+        <div id="uploadModalTitle" style="font-weight:900;font-size:1rem;color:#0b1e4b;margin-bottom:3px;font-family:'Cinzel',serif;"><i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-bottom:16px;">ড্রাইভিং লাইসেন্স, ট্রেড লাইসেন্স, গাড়ির কাগজ ইত্যাদি</div>
+
+        <input type="text" id="docNameInput" placeholder="ডকুমেন্টের নাম (যেমন: Driving License)" style="width:100%;padding:13px 15px;border-radius:13px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:11px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+
+        <div id="uploadDropArea" onclick="document.getElementById('docFileInput').click()" style="border:2px dashed rgba(26,26,236,0.28);border-radius:16px;padding:24px 14px;text-align:center;cursor:pointer;background:linear-gradient(135deg,rgba(26,26,236,0.03),rgba(0,212,170,0.03));margin-bottom:11px;transition:all 0.3s;">
+            <div style="font-size:2rem;color:#1a1aec;margin-bottom:7px;"><i class="fa-solid fa-image"></i></div>
+            <div style="font-weight:700;color:#0b1e4b;font-size:0.85rem;margin-bottom:3px;">ছবি সিলেক্ট করুন</div>
+            <div style="font-size:0.7rem;color:#64748b;">JPG · PNG · WEBP সাপোর্টেড</div>
+        </div>
+        <img id="uploadPreview" style="width:100%;max-height:170px;border-radius:13px;object-fit:contain;background:#f0f4ff;display:none;margin-bottom:11px;" alt="Preview">
+        <input type="file" id="docFileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+        <input type="hidden" id="editDocId" value="">
+
+        <button onclick="saveDocument()" style="width:100%;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 26px rgba(26,26,236,0.38);margin-bottom:9px;letter-spacing:0.5px;"><i class="fa-solid fa-floppy-disk"></i> <span id="saveBtnText">ডকুমেন্ট সেভ করুন</span></button>
+        <button onclick="closeUploadModal()" style="width:100%;padding:11px;border:none;border-radius:13px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.83rem;cursor:pointer;">বাতিল করুন</button>
+    </div>
+</div>
+
+<!-- ===== LOCK / UNLOCK MODAL ===== -->
+<div id="lockModal" style="position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:20px;">
+    <div style="width:100%;max-width:340px;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:26px;padding:30px 24px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.4);">
+        <div style="text-align:center;margin-bottom:22px;">
+            <div id="lockModalIcon" style="font-size:2.5rem;margin-bottom:12px;">🔒</div>
+            <div id="lockModalTitle" style="font-weight:900;font-size:1rem;color:#0b1e4b;font-family:'Cinzel',serif;margin-bottom:5px;">পাসওয়ার্ড দিন</div>
+            <div id="lockModalSub" style="font-size:0.78rem;color:#64748b;">ডকুমেন্টটি আনলক করতে পাসওয়ার্ড লিখুন</div>
+        </div>
+        <input type="password" id="lockPassInput" placeholder="পাসওয়ার্ড লিখুন..." style="width:100%;padding:13px 16px;border-radius:13px;border:2px solid rgba(26,26,236,0.18);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.92rem;color:#0f172a;margin-bottom:8px;outline:none;box-sizing:border-box;text-align:center;letter-spacing:3px;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.18)'" onkeydown="if(event.key==='Enter')confirmLock()">
+        <div id="lockPassError" style="color:#dc2626;font-size:0.75rem;font-weight:700;text-align:center;margin-bottom:10px;display:none;"><i class="fa-solid fa-circle-exclamation" style="margin-right:4px;"></i>ভুল পাসওয়ার্ড!</div>
+        <button onclick="confirmLock()" style="width:100%;padding:14px;border:none;border-radius:13px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.9rem;cursor:pointer;box-shadow:0 8px 22px rgba(26,26,236,0.38);margin-bottom:9px;letter-spacing:0.5px;"><i class="fa-solid fa-unlock" style="margin-right:6px;"></i>নিশ্চিত করুন</button>
+        <button onclick="closeLockModal()" style="width:100%;padding:11px;border:none;border-radius:12px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.83rem;cursor:pointer;">বাতিল করুন</button>
+    </div>
+</div>
+
+<!-- ===== CHANGE PASSWORD MODAL ===== -->
+<div id="changePassModal" style="position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:20px;">
+    <div style="width:100%;max-width:340px;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:26px;padding:30px 24px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.4);">
+        <div style="text-align:center;margin-bottom:22px;">
+            <div style="font-size:2.2rem;margin-bottom:11px;">🔑</div>
+            <div style="font-weight:900;font-size:1rem;color:#0b1e4b;font-family:'Cinzel',serif;margin-bottom:5px;">পাসওয়ার্ড পরিবর্তন</div>
+            <div style="font-size:0.78rem;color:#64748b;">পূর্বের পাসওয়ার্ড দিয়ে নতুন পাসওয়ার্ড সেট করুন</div>
+        </div>
+        <input type="password" id="cpOldPass" placeholder="পূর্বের পাসওয়ার্ড" style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:10px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <input type="password" id="cpNewPass" placeholder="নতুন পাসওয়ার্ড (কমপক্ষে ৪ সংখ্যা)" style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:10px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <input type="password" id="cpConfirmPass" placeholder="নতুন পাসওয়ার্ড আবার লিখুন" style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:8px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <div id="cpError" style="color:#dc2626;font-size:0.75rem;font-weight:700;text-align:center;margin-bottom:10px;display:none;"></div>
+        <div id="cpSuccess" style="color:#16a34a;font-size:0.75rem;font-weight:700;text-align:center;margin-bottom:10px;display:none;"><i class="fa-solid fa-check-circle" style="margin-right:4px;"></i>পাসওয়ার্ড পরিবর্তন হয়েছে!</div>
+        <button onclick="doChangePass()" style="width:100%;padding:14px;border:none;border-radius:13px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.9rem;cursor:pointer;box-shadow:0 8px 22px rgba(26,26,236,0.38);margin-bottom:9px;letter-spacing:0.5px;"><i class="fa-solid fa-key" style="margin-right:6px;"></i>পাসওয়ার্ড পরিবর্তন করুন</button>
+        <button onclick="closeChangePassModal()" style="width:100%;padding:11px;border:none;border-radius:12px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.83rem;cursor:pointer;">বাতিল করুন</button>
+    </div>
+</div>
 
     <!-- Hero Banner -->
     <div style="background:linear-gradient(135deg,#0b1e4b,#1a1aec,#00695c);padding:28px 25px 24px;position:relative;overflow:hidden;">
@@ -968,48 +1070,73 @@ body { background: radial-gradient(ellipse at 30% 20%, #0d0d2b 0%, #070714 60%, 
     </button>
 </div>
 
+
 <!-- ===== DOCUMENT VIEWER ===== -->
-<div id="docViewerOverlay" style="position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s;">
-    <div style="display:flex;align-items:center;padding:16px 18px;background:rgba(7,7,20,0.95);border-bottom:1px solid rgba(255,255,255,0.08);gap:12px;flex-shrink:0;">
-        <button onclick="closeDocViewer()" style="width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-arrow-left"></i></button>
-        <div id="docViewerTitle" style="color:#fff;font-weight:700;font-size:0.9rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
-        <button onclick="downloadCurrentDoc()" style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#1a1aec,#4f46e5);border:none;color:#fff;font-size:0.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-download"></i></button>
+<div id="docViewerOverlay" style="position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.96);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.3s;">
+    <div style="display:flex;align-items:center;padding:15px 16px;background:rgba(7,7,20,0.97);border-bottom:1px solid rgba(255,255,255,0.08);gap:11px;flex-shrink:0;">
+        <button onclick="closeDocViewer()" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-arrow-left"></i></button>
+        <div id="docViewerTitle" style="color:#fff;font-weight:700;font-size:0.88rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+        <button onclick="downloadCurrentDoc()" style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#1a1aec,#4f46e5);border:none;color:#fff;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-download"></i></button>
     </div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto;">
-        <img id="docViewerImg" style="max-width:100%;max-height:100%;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.5);" src="" alt="">
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto;">
+        <img id="docViewerImg" style="max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);" src="" alt="">
     </div>
-    <div style="display:flex;gap:12px;padding:16px 18px;background:rgba(7,7,20,0.95);border-top:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
-        <button onclick="printCurrentDoc()" style="flex:1;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(22,163,74,0.4);letter-spacing:1px;">
-            <i class="fa-solid fa-print"></i> প্রিন্ট করুন
-        </button>
-        <button onclick="downloadCurrentDoc()" style="flex:1;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(26,26,236,0.4);letter-spacing:1px;">
-            <i class="fa-solid fa-download"></i> ডাউনলোড
-        </button>
+    <div style="display:flex;gap:11px;padding:14px 16px;background:rgba(7,7,20,0.97);border-top:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
+        <button onclick="printCurrentDoc()" style="flex:1;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-weight:700;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 8px 20px rgba(22,163,74,0.4);letter-spacing:0.5px;"><i class="fa-solid fa-print"></i> প্রিন্ট করুন</button>
+        <button onclick="downloadCurrentDoc()" style="flex:1;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 8px 20px rgba(26,26,236,0.4);letter-spacing:0.5px;"><i class="fa-solid fa-download"></i> ডাউনলোড</button>
     </div>
 </div>
 
 <!-- ===== UPLOAD / EDIT MODAL ===== -->
 <div id="uploadModal" style="position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,0.82);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity 0.3s;">
-    <div id="uploadSheet" style="width:100%;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:30px 30px 0 0;padding:24px 22px 38px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);">
-        <div style="width:40px;height:4px;border-radius:2px;background:rgba(26,26,236,0.2);margin:0 auto 20px;"></div>
-        <div id="uploadModalTitle" style="font-weight:900;font-size:1.05rem;color:#0b1e4b;margin-bottom:4px;font-family:'Cinzel',serif;"><i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন</div>
-        <div style="font-size:0.8rem;color:#64748b;margin-bottom:18px;">ড্রাইভিং লাইসেন্স, ট্রেড লাইসেন্স, গাড়ির কাগজ ইত্যাদি</div>
-
-        <input type="text" id="docNameInput" placeholder="ডকুমেন্টের নাম (যেমন: Driving License)" style="width:100%;padding:14px 16px;border-radius:14px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;color:#0f172a;margin-bottom:13px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
-
-        <div id="uploadDropArea" onclick="document.getElementById('docFileInput').click()" style="border:2px dashed rgba(26,26,236,0.3);border-radius:18px;padding:26px 16px;text-align:center;cursor:pointer;background:linear-gradient(135deg,rgba(26,26,236,0.03),rgba(0,212,170,0.03));margin-bottom:13px;transition:all 0.3s;">
-            <div style="font-size:2.2rem;color:#1a1aec;margin-bottom:8px;"><i class="fa-solid fa-image"></i></div>
-            <div style="font-weight:700;color:#0b1e4b;font-size:0.88rem;margin-bottom:4px;">ছবি সিলেক্ট করুন</div>
-            <div style="font-size:0.72rem;color:#64748b;">JPG · PNG · WEBP সাপোর্টেড</div>
+    <div id="uploadSheet" style="width:100%;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:28px 28px 0 0;padding:22px 20px 36px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);max-height:92vh;overflow-y:auto;">
+        <div style="width:38px;height:4px;border-radius:2px;background:rgba(26,26,236,0.18);margin:0 auto 18px;"></div>
+        <div id="uploadModalTitle" style="font-weight:900;font-size:1rem;color:#0b1e4b;margin-bottom:3px;font-family:'Cinzel',serif;"><i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-bottom:16px;">ড্রাইভিং লাইসেন্স, ট্রেড লাইসেন্স, গাড়ির কাগজ ইত্যাদি</div>
+        <input type="text" id="docNameInput" placeholder="ডকুমেন্টের নাম (যেমন: Driving License)" style="width:100%;padding:13px 15px;border-radius:13px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:11px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <div id="uploadDropArea" onclick="document.getElementById('docFileInput').click()" style="border:2px dashed rgba(26,26,236,0.28);border-radius:16px;padding:24px 14px;text-align:center;cursor:pointer;background:linear-gradient(135deg,rgba(26,26,236,0.03),rgba(0,212,170,0.03));margin-bottom:11px;transition:all 0.3s;">
+            <div style="font-size:2rem;color:#1a1aec;margin-bottom:7px;"><i class="fa-solid fa-image"></i></div>
+            <div style="font-weight:700;color:#0b1e4b;font-size:0.85rem;margin-bottom:3px;">ছবি সিলেক্ট করুন</div>
+            <div style="font-size:0.7rem;color:#64748b;">JPG · PNG · WEBP সাপোর্টেড</div>
         </div>
-        <img id="uploadPreview" style="width:100%;max-height:180px;border-radius:14px;object-fit:contain;background:#f0f4ff;display:none;margin-bottom:13px;" alt="Preview">
+        <img id="uploadPreview" style="width:100%;max-height:170px;border-radius:13px;object-fit:contain;background:#f0f4ff;display:none;margin-bottom:11px;" alt="Preview">
         <input type="file" id="docFileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
         <input type="hidden" id="editDocId" value="">
+        <button onclick="saveDocument()" style="width:100%;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 26px rgba(26,26,236,0.38);margin-bottom:9px;letter-spacing:0.5px;"><i class="fa-solid fa-floppy-disk"></i> <span id="saveBtnText">ডকুমেন্ট সেভ করুন</span></button>
+        <button onclick="closeUploadModal()" style="width:100%;padding:11px;border:none;border-radius:13px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.83rem;cursor:pointer;">বাতিল করুন</button>
+    </div>
+</div>
 
-        <button onclick="saveDocument()" style="width:100%;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.92rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 10px 28px rgba(26,26,236,0.4);margin-bottom:10px;letter-spacing:0.5px;">
-            <i class="fa-solid fa-floppy-disk"></i> <span id="saveBtnText">ডকুমেন্ট সেভ করুন</span>
-        </button>
-        <button onclick="closeUploadModal()" style="width:100%;padding:12px;border:none;border-radius:14px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.85rem;cursor:pointer;">বাতিল করুন</button>
+<!-- ===== LOCK / UNLOCK MODAL ===== -->
+<div id="lockModal" style="position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:20px;">
+    <div style="width:100%;max-width:340px;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:26px;padding:30px 24px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.4);">
+        <div style="text-align:center;margin-bottom:22px;">
+            <div id="lockModalIcon" style="font-size:2.5rem;margin-bottom:12px;">🔒</div>
+            <div id="lockModalTitle" style="font-weight:900;font-size:1rem;color:#0b1e4b;font-family:'Cinzel',serif;margin-bottom:5px;">পাসওয়ার্ড দিন</div>
+            <div id="lockModalSub" style="font-size:0.78rem;color:#64748b;">ডকুমেন্টটি আনলক করতে পাসওয়ার্ড লিখুন</div>
+        </div>
+        <input type="password" id="lockPassInput" placeholder="পাসওয়ার্ড লিখুন..." style="width:100%;padding:13px 16px;border-radius:13px;border:2px solid rgba(26,26,236,0.18);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.92rem;color:#0f172a;margin-bottom:8px;outline:none;box-sizing:border-box;text-align:center;letter-spacing:3px;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.18)'" onkeydown="if(event.key==='Enter')confirmLock()">
+        <div id="lockPassError" style="color:#dc2626;font-size:0.75rem;font-weight:700;text-align:center;margin-bottom:10px;display:none;"><i class="fa-solid fa-circle-exclamation" style="margin-right:4px;"></i>ভুল পাসওয়ার্ড!</div>
+        <button onclick="confirmLock()" style="width:100%;padding:14px;border:none;border-radius:13px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.9rem;cursor:pointer;box-shadow:0 8px 22px rgba(26,26,236,0.38);margin-bottom:9px;letter-spacing:0.5px;"><i class="fa-solid fa-unlock" style="margin-right:6px;"></i>নিশ্চিত করুন</button>
+        <button onclick="closeLockModal()" style="width:100%;padding:11px;border:none;border-radius:12px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.83rem;cursor:pointer;">বাতিল করুন</button>
+    </div>
+</div>
+
+<!-- ===== CHANGE PASSWORD MODAL ===== -->
+<div id="changePassModal" style="position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:20px;">
+    <div style="width:100%;max-width:340px;background:linear-gradient(170deg,#fff,#f0f4ff);border-radius:26px;padding:30px 24px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.4);">
+        <div style="text-align:center;margin-bottom:22px;">
+            <div style="font-size:2.2rem;margin-bottom:11px;">🔑</div>
+            <div style="font-weight:900;font-size:1rem;color:#0b1e4b;font-family:'Cinzel',serif;margin-bottom:5px;">পাসওয়ার্ড পরিবর্তন</div>
+            <div style="font-size:0.78rem;color:#64748b;">পূর্বের পাসওয়ার্ড দিয়ে নতুন পাসওয়ার্ড সেট করুন</div>
+        </div>
+        <input type="password" id="cpOldPass" placeholder="পূর্বের পাসওয়ার্ড" style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:10px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <input type="password" id="cpNewPass" placeholder="নতুন পাসওয়ার্ড (কমপক্ষে ৪ অক্ষর)" style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:10px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <input type="password" id="cpConfirmPass" placeholder="নতুন পাসওয়ার্ড আবার লিখুন" style="width:100%;padding:12px 15px;border-radius:12px;border:2px solid rgba(26,26,236,0.15);background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:#0f172a;margin-bottom:8px;outline:none;box-sizing:border-box;transition:border-color 0.3s;" onfocus="this.style.borderColor='#1a1aec'" onblur="this.style.borderColor='rgba(26,26,236,0.15)'">
+        <div id="cpError" style="color:#dc2626;font-size:0.75rem;font-weight:700;text-align:center;margin-bottom:10px;display:none;"></div>
+        <div id="cpSuccess" style="color:#16a34a;font-size:0.75rem;font-weight:700;text-align:center;margin-bottom:10px;display:none;"><i class="fa-solid fa-check-circle" style="margin-right:4px;"></i>পাসওয়ার্ড পরিবর্তন হয়েছে!</div>
+        <button onclick="doChangePass()" style="width:100%;padding:14px;border:none;border-radius:13px;background:linear-gradient(135deg,#0b1e4b,#1a1aec);color:#fff;font-weight:700;font-size:0.9rem;cursor:pointer;box-shadow:0 8px 22px rgba(26,26,236,0.38);margin-bottom:9px;letter-spacing:0.5px;"><i class="fa-solid fa-key" style="margin-right:6px;"></i>পাসওয়ার্ড পরিবর্তন করুন</button>
+        <button onclick="closeChangePassModal()" style="width:100%;padding:11px;border:none;border-radius:12px;background:rgba(26,26,236,0.07);color:#64748b;font-weight:700;font-size:0.83rem;cursor:pointer;">বাতিল করুন</button>
     </div>
 </div>
 
@@ -1018,331 +1145,438 @@ body { background: radial-gradient(ellipse at 30% 20%, #0d0d2b 0%, #070714 60%, 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 /* ===== PARTICLES ===== */
-(function() {
-    const container = document.getElementById('particles');
-    const colors = ['rgba(79,70,229,0.6)','rgba(0,212,170,0.4)','rgba(240,192,64,0.3)','rgba(99,102,241,0.5)'];
-    for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const size = Math.random() * 6 + 2;
-        p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
-        container.appendChild(p);
+(function(){
+    const c=document.getElementById('particles');
+    const cl=['rgba(79,70,229,0.6)','rgba(0,212,170,0.4)','rgba(240,192,64,0.3)','rgba(99,102,241,0.5)'];
+    for(let i=0;i<30;i++){
+        const p=document.createElement('div');p.className='particle';
+        const s=Math.random()*6+2;
+        p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${cl[Math.floor(Math.random()*cl.length)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
+        c.appendChild(p);
     }
 })();
 
 /* ===== SCROLL REVEAL ===== */
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 /* ===== TAB SWITCHING ===== */
-function openTab(evt, tabName) {
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+function openTab(evt,tabName){
+    document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab-trigger').forEach(t=>t.classList.remove('active'));
     document.getElementById(tabName).classList.add('active');
     evt.currentTarget.classList.add('active');
 }
 
 /* ===== SERVICE PAGES ===== */
-function openService(id) {
-    const page = document.getElementById('sp-' + id);
-    if (!page) return;
+function openService(id){
+    const page=document.getElementById('sp-'+id);
+    if(!page)return;
     page.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    page.scrollTop = 0;
+    document.body.style.overflow='hidden';
+    page.scrollTop=0;
 }
-function closeService(id) {
-    document.getElementById('sp-' + id).classList.remove('open');
-    document.body.style.overflow = '';
+function closeService(id){
+    document.getElementById('sp-'+id).classList.remove('open');
+    document.body.style.overflow='';
 }
-window.addEventListener('popstate', () => {
-    document.querySelectorAll('.service-page.open').forEach(p => p.classList.remove('open'));
-    document.body.style.overflow = '';
+window.addEventListener('popstate',()=>{
+    document.querySelectorAll('.service-page.open').forEach(p=>p.classList.remove('open'));
+    document.body.style.overflow='';
 });
 
-/* ===================================================================
-   DOCUMENT MANAGER — IndexedDB (Persistent, Refresh-Safe)
-=================================================================== */
-const DB_NAME = 'AKSDocVault';
-const DB_VER  = 1;
-const STORE   = 'documents';
-let db = null;
+/* =============================================================
+   DATABASE — IndexedDB v2 (documents + settings stores)
+============================================================= */
+const DB_NAME='AKSDocVault', DB_VER=2, STORE='documents', PASS_STORE='settings';
+let db=null;
 
-function initDB() {
-    return new Promise((resolve, reject) => {
-        if (db) { resolve(db); return; }
-        const req = indexedDB.open(DB_NAME, DB_VER);
-        req.onupgradeneeded = e => {
-            const d = e.target.result;
-            if (!d.objectStoreNames.contains(STORE)) {
-                const store = d.createObjectStore(STORE, { keyPath: 'id' });
-                store.createIndex('date', 'date', { unique: false });
-            }
+function initDB(){
+    return new Promise((resolve,reject)=>{
+        if(db){resolve(db);return;}
+        const req=indexedDB.open(DB_NAME,DB_VER);
+        req.onupgradeneeded=e=>{
+            const d=e.target.result;
+            if(!d.objectStoreNames.contains(STORE)) d.createObjectStore(STORE,{keyPath:'id'});
+            if(!d.objectStoreNames.contains(PASS_STORE)) d.createObjectStore(PASS_STORE,{keyPath:'key'});
         };
-        req.onsuccess = e => { db = e.target.result; resolve(db); };
-        req.onerror   = e => reject(e.target.error);
+        req.onsuccess=e=>{db=e.target.result;resolve(db);};
+        req.onerror=e=>reject(e.target.error);
     });
 }
 
-function dbGetAll() {
-    return initDB().then(d => new Promise((res, rej) => {
-        const tx = d.transaction(STORE, 'readonly');
-        const req = tx.objectStore(STORE).getAll();
-        req.onsuccess = e => res(e.target.result || []);
-        req.onerror   = e => rej(e.target.error);
+/* SHA-256 hash via WebCrypto — passwords never stored as plain text */
+async function hashPass(plain){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(plain));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function settingsGet(key){
+    return initDB().then(d=>new Promise((res,rej)=>{
+        const req=d.transaction(PASS_STORE,'readonly').objectStore(PASS_STORE).get(key);
+        req.onsuccess=e=>res(e.target.result?.value??null);
+        req.onerror=e=>rej(e.target.error);
+    }));
+}
+function settingsPut(key,value){
+    return initDB().then(d=>new Promise((res,rej)=>{
+        const req=d.transaction(PASS_STORE,'readwrite').objectStore(PASS_STORE).put({key,value});
+        req.onsuccess=()=>res();req.onerror=e=>rej(e.target.error);
     }));
 }
 
-function dbPut(doc) {
-    return initDB().then(d => new Promise((res, rej) => {
-        const tx = d.transaction(STORE, 'readwrite');
-        const req = tx.objectStore(STORE).put(doc);
-        req.onsuccess = () => res();
-        req.onerror   = e => rej(e.target.error);
+/* Default password: 1234 */
+async function getPassHash(){
+    let h=await settingsGet('passHash');
+    if(!h){h=await hashPass('1234');await settingsPut('passHash',h);}
+    return h;
+}
+
+function dbGetAll(){
+    return initDB().then(d=>new Promise((res,rej)=>{
+        const req=d.transaction(STORE,'readonly').objectStore(STORE).getAll();
+        req.onsuccess=e=>res(e.target.result||[]);
+        req.onerror=e=>rej(e.target.error);
+    }));
+}
+function dbPut(doc){
+    return initDB().then(d=>new Promise((res,rej)=>{
+        const req=d.transaction(STORE,'readwrite').objectStore(STORE).put(doc);
+        req.onsuccess=()=>res();req.onerror=e=>rej(e.target.error);
+    }));
+}
+function dbDelete(id){
+    return initDB().then(d=>new Promise((res,rej)=>{
+        const req=d.transaction(STORE,'readwrite').objectStore(STORE).delete(id);
+        req.onsuccess=()=>res();req.onerror=e=>rej(e.target.error);
     }));
 }
 
-function dbDelete(id) {
-    return initDB().then(d => new Promise((res, rej) => {
-        const tx = d.transaction(STORE, 'readwrite');
-        const req = tx.objectStore(STORE).delete(id);
-        req.onsuccess = () => res();
-        req.onerror   = e => rej(e.target.error);
-    }));
-}
+/* =============================================================
+   RENDER DOCUMENTS
+============================================================= */
+async function renderDocsPage(){
+    const docs=await dbGetAll();
+    const grid=document.getElementById('docsPageGrid');
+    const empty=document.getElementById('docsEmptyState');
+    const badge=document.getElementById('docBadge');
 
-/* ===== RENDER DOCUMENTS ===== */
-async function renderDocsPage() {
-    const docs = await dbGetAll();
-    const grid  = document.getElementById('docsPageGrid');
-    const empty = document.getElementById('docsEmptyState');
-    const badge = document.getElementById('docBadge');
+    if(docs.length>0){badge.textContent=docs.length;badge.style.display='flex';}
+    else badge.style.display='none';
 
-    // Badge
-    if (docs.length > 0) {
-        badge.textContent = docs.length;
-        badge.style.display = 'flex';
-    } else {
-        badge.style.display = 'none';
-    }
+    if(docs.length===0){empty.style.display='flex';grid.style.display='none';return;}
+    empty.style.display='none';grid.style.display='grid';grid.innerHTML='';
 
-    if (docs.length === 0) {
-        empty.style.display = 'flex';
-        grid.style.display  = 'none';
-        return;
-    }
-    empty.style.display = 'none';
-    grid.style.display  = 'grid';
-    grid.innerHTML = '';
-
-    docs.sort((a,b) => b.id - a.id).forEach(doc => {
-        const card = document.createElement('div');
-        card.style.cssText = 'background:linear-gradient(135deg,#fff,#f0f4ff);border-radius:20px;border:1px solid rgba(26,26,236,0.1);box-shadow:0 6px 20px rgba(26,26,236,0.1);overflow:hidden;position:relative;';
-        card.innerHTML = `
-            <img src="${doc.data}" alt="${doc.name}" style="width:100%;height:105px;object-fit:cover;display:block;cursor:pointer;" onclick="viewDoc('${doc.id}')">
-            <div style="padding:10px 11px 4px;">
-                <div style="font-weight:800;font-size:0.73rem;color:#0b1e4b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${doc.name}">${doc.name}</div>
-                <div style="font-size:0.62rem;color:#64748b;margin-top:2px;"><i class="fa-solid fa-calendar-days" style="margin-right:3px;"></i>${doc.date}</div>
+    docs.sort((a,b)=>b.id-a.id).forEach(doc=>{
+        const locked=!!doc.locked;
+        const card=document.createElement('div');
+        card.style.cssText='background:linear-gradient(135deg,#fff,#f0f4ff);border-radius:20px;border:1px solid rgba(26,26,236,0.1);box-shadow:0 6px 20px rgba(26,26,236,0.1);overflow:hidden;position:relative;';
+        const blurStyle=locked?'filter:blur(7px);':'';
+        const lockOverlay=locked?`<div style="position:absolute;top:0;left:0;right:0;height:105px;display:flex;align-items:center;justify-content:center;background:rgba(11,30,75,0.4);pointer-events:none;"><span style="font-size:1.9rem;">🔒</span></div>`:'';
+        const viewAct=locked?`requestUnlock('${doc.id}','view')`:`viewDoc('${doc.id}')`;
+        const editAct=locked?`requestUnlock('${doc.id}','edit')`:`editDoc('${doc.id}')`;
+        const delAct=locked?`requestUnlock('${doc.id}','delete')`:`deleteDoc('${doc.id}')`;
+        const lockBtnColor=locked?'rgba(245,158,11,0.18)':'rgba(26,26,236,0.08)';
+        const lockBtnTxt=locked?'#b45309':'#1a1aec';
+        const lockIcon=locked?'lock-open':'lock';
+        card.innerHTML=`
+            <div style="position:relative;">
+                <img src="${doc.data}" alt="${doc.name}" style="width:100%;height:105px;object-fit:cover;display:block;cursor:pointer;${blurStyle}" onclick="${viewAct}">
+                ${lockOverlay}
             </div>
-            <div style="display:flex;gap:5px;padding:7px 10px 11px;">
-                <button onclick="viewDoc('${doc.id}')" style="flex:1;padding:7px 4px;border:none;border-radius:10px;background:linear-gradient(135deg,#e8eeff,#f0f4ff);color:#1a1aec;font-size:0.65rem;font-weight:700;cursor:pointer;border:1px solid rgba(26,26,236,0.15);letter-spacing:0.3px;"><i class="fa-solid fa-eye"></i> দেখুন</button>
-                <button onclick="editDoc('${doc.id}')" style="flex:1;padding:7px 4px;border:none;border-radius:10px;background:linear-gradient(135deg,#fef9c3,#fef3c7);color:#92400e;font-size:0.65rem;font-weight:700;cursor:pointer;letter-spacing:0.3px;"><i class="fa-solid fa-pen"></i> বদলান</button>
-                <button onclick="deleteDoc('${doc.id}')" style="flex:0 0 auto;padding:7px 9px;border:none;border-radius:10px;background:rgba(220,38,38,0.1);color:#dc2626;font-size:0.65rem;font-weight:700;cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            <div style="padding:9px 11px 3px;">
+                <div style="font-weight:800;font-size:0.72rem;color:#0b1e4b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${doc.name}">${doc.name}</div>
+                <div style="font-size:0.6rem;color:#64748b;margin-top:2px;display:flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-calendar-days"></i>${doc.date}
+                    ${locked?'<span style="background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:6px;font-weight:700;font-size:0.56rem;">🔒 LOCKED</span>':''}
+                </div>
             </div>
-        `;
+            <div style="display:flex;gap:4px;padding:6px 9px 10px;">
+                <button onclick="${viewAct}" style="flex:1;padding:7px 3px;border:none;border-radius:9px;background:linear-gradient(135deg,#e8eeff,#f0f4ff);color:#1a1aec;font-size:0.62rem;font-weight:700;cursor:pointer;border:1px solid rgba(26,26,236,0.12);"><i class="fa-solid fa-eye"></i> দেখুন</button>
+                <button onclick="${editAct}" style="flex:1;padding:7px 3px;border:none;border-radius:9px;background:linear-gradient(135deg,#fef9c3,#fef3c7);color:#92400e;font-size:0.62rem;font-weight:700;cursor:pointer;"><i class="fa-solid fa-pen"></i> বদলান</button>
+                <button onclick="toggleLock('${doc.id}')" style="flex:0 0 auto;padding:7px 8px;border:none;border-radius:9px;background:${lockBtnColor};color:${lockBtnTxt};font-size:0.62rem;font-weight:700;cursor:pointer;" title="${locked?'আনলক':'লক'}"><i class="fa-solid fa-${lockIcon}"></i></button>
+                <button onclick="${delAct}" style="flex:0 0 auto;padding:7px 8px;border:none;border-radius:9px;background:rgba(220,38,38,0.1);color:#dc2626;font-size:0.62rem;font-weight:700;cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            </div>`;
         grid.appendChild(card);
     });
 }
 
-/* ===== OPEN / CLOSE DOC PAGE ===== */
-function openDocPage() {
-    openService('documents');
-    renderDocsPage();
-}
-function closeDocPage() {
-    closeService('documents');
+/* =============================================================
+   LOCK SYSTEM
+============================================================= */
+let _lockAction=null, _lockDocId=null;
+
+async function toggleLock(id){
+    const docs=await dbGetAll();
+    const doc=docs.find(d=>String(d.id)===String(id));
+    if(!doc)return;
+    _lockDocId=id;
+    if(doc.locked){
+        _lockAction='unlock';
+        showLockModal('🔐','আনলক করতে পাসওয়ার্ড দিন','পাসওয়ার্ড সঠিক হলে ডকুমেন্ট আনলক হবে');
+    } else {
+        _lockAction='lock';
+        showLockModal('🔒','লক করতে পাসওয়ার্ড দিন','পাসওয়ার্ড নিশ্চিত করে ডকুমেন্ট লক করুন');
+    }
 }
 
-/* ===== VIEW DOC ===== */
-async function viewDoc(id) {
-    const docs = await dbGetAll();
-    const doc = docs.find(d => String(d.id) === String(id));
-    if (!doc) return;
-    window._currentDoc = doc;
-    document.getElementById('docViewerImg').src = doc.data;
-    document.getElementById('docViewerTitle').textContent = doc.name;
-    const overlay = document.getElementById('docViewerOverlay');
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'all';
-    document.body.style.overflow = 'hidden';
-}
-function closeDocViewer() {
-    const overlay = document.getElementById('docViewerOverlay');
-    overlay.style.opacity = '0';
-    overlay.style.pointerEvents = 'none';
-    window._currentDoc = null;
-}
-function downloadCurrentDoc() {
-    if (!window._currentDoc) return;
-    const link = document.createElement('a');
-    link.href = window._currentDoc.data;
-    link.download = window._currentDoc.name.replace(/\s+/g,'_') + '.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-function printCurrentDoc() {
-    if (!window._currentDoc) return;
-    const win = window.open('','_blank');
-    win.document.write(`<!DOCTYPE html><html><head><title>${window._currentDoc.name}</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff;}img{max-width:100%;max-height:100vh;object-fit:contain;}@media print{body{margin:0;}img{width:100%;height:auto;}}</style></head><body><img src="${window._currentDoc.data}" alt="${window._currentDoc.name}"><script>window.onload=function(){setTimeout(function(){window.print();},400);};<\/script></body></html>`);
-    win.document.close();
+function requestUnlock(id,action){
+    _lockDocId=id;_lockAction=action;
+    showLockModal('🔐','পাসওয়ার্ড দিন','অ্যাক্সেস করতে পাসওয়ার্ড লিখুন');
 }
 
-/* ===== DELETE DOC ===== */
-async function deleteDoc(id) {
-    if (!confirm('এই ডকুমেন্টটি ডিলিট করবেন?')) return;
+function showLockModal(icon,title,sub){
+    document.getElementById('lockModalIcon').textContent=icon;
+    document.getElementById('lockModalTitle').textContent=title;
+    document.getElementById('lockModalSub').textContent=sub;
+    document.getElementById('lockPassInput').value='';
+    document.getElementById('lockPassError').style.display='none';
+    const m=document.getElementById('lockModal');
+    m.style.opacity='1';m.style.pointerEvents='all';
+    setTimeout(()=>document.getElementById('lockPassInput').focus(),250);
+}
+function closeLockModal(){
+    const m=document.getElementById('lockModal');
+    m.style.opacity='0';m.style.pointerEvents='none';
+    _lockDocId=null;_lockAction=null;
+}
+
+async function confirmLock(){
+    const input=document.getElementById('lockPassInput').value;
+    const errEl=document.getElementById('lockPassError');
+    if(!input){errEl.style.display='block';return;}
+    const inputHash=await hashPass(input);
+    const storedHash=await getPassHash();
+    if(inputHash!==storedHash){
+        errEl.style.display='block';
+        const inp=document.getElementById('lockPassInput');
+        inp.value='';inp.style.borderColor='#dc2626';
+        inp.focus();
+        setTimeout(()=>{inp.style.borderColor='';},1500);
+        return;
+    }
+    errEl.style.display='none';
+    const id=_lockDocId, action=_lockAction;
+    closeLockModal();
+    if(action==='view') viewDoc(id);
+    else if(action==='edit') editDoc(id);
+    else if(action==='delete') deleteDoc(id);
+    else if(action==='lock'||action==='unlock'){
+        const docs=await dbGetAll();
+        const doc=docs.find(d=>String(d.id)===String(id));
+        if(doc){doc.locked=!doc.locked;await dbPut(doc);renderDocsPage();}
+    }
+}
+
+/* =============================================================
+   CHANGE PASSWORD
+============================================================= */
+function openChangePassModal(){
+    ['cpOldPass','cpNewPass','cpConfirmPass'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('cpError').style.display='none';
+    document.getElementById('cpSuccess').style.display='none';
+    const m=document.getElementById('changePassModal');
+    m.style.opacity='1';m.style.pointerEvents='all';
+}
+function closeChangePassModal(){
+    const m=document.getElementById('changePassModal');
+    m.style.opacity='0';m.style.pointerEvents='none';
+}
+async function doChangePass(){
+    const oldP=document.getElementById('cpOldPass').value;
+    const newP=document.getElementById('cpNewPass').value;
+    const conP=document.getElementById('cpConfirmPass').value;
+    const errEl=document.getElementById('cpError');
+    const okEl=document.getElementById('cpSuccess');
+    errEl.style.display='none';okEl.style.display='none';
+    if(!oldP||!newP||!conP){errEl.textContent='সব ঘর পূরণ করুন!';errEl.style.display='block';return;}
+    if(newP.length<4){errEl.textContent='নতুন পাসওয়ার্ড কমপক্ষে ৪ অক্ষর হতে হবে!';errEl.style.display='block';return;}
+    if(newP!==conP){errEl.textContent='নতুন পাসওয়ার্ড দুটি মিলছে না!';errEl.style.display='block';return;}
+    const oldHash=await hashPass(oldP);
+    const storedHash=await getPassHash();
+    if(oldHash!==storedHash){errEl.textContent='পূর্বের পাসওয়ার্ড ভুল!';errEl.style.display='block';return;}
+    await settingsPut('passHash',await hashPass(newP));
+    okEl.style.display='block';
+    ['cpOldPass','cpNewPass','cpConfirmPass'].forEach(id=>document.getElementById(id).value='');
+    setTimeout(closeChangePassModal,2000);
+}
+
+/* =============================================================
+   DOC PAGE
+============================================================= */
+function openDocPage(){openService('documents');renderDocsPage();}
+function closeDocPage(){closeService('documents');}
+
+/* =============================================================
+   VIEWER
+============================================================= */
+async function viewDoc(id){
+    const docs=await dbGetAll();
+    const doc=docs.find(d=>String(d.id)===String(id));
+    if(!doc)return;
+    window._currentDoc=doc;
+    document.getElementById('docViewerImg').src=doc.data;
+    document.getElementById('docViewerTitle').textContent=doc.name;
+    const ov=document.getElementById('docViewerOverlay');
+    ov.style.opacity='1';ov.style.pointerEvents='all';
+    document.body.style.overflow='hidden';
+}
+function closeDocViewer(){
+    const ov=document.getElementById('docViewerOverlay');
+    ov.style.opacity='0';ov.style.pointerEvents='none';
+    window._currentDoc=null;
+}
+function downloadCurrentDoc(){
+    if(!window._currentDoc)return;
+    const a=document.createElement('a');
+    a.href=window._currentDoc.data;
+    a.download=window._currentDoc.name.replace(/\s+/g,'_')+'.jpg';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function printCurrentDoc(){
+    if(!window._currentDoc)return;
+    const w=window.open('','_blank');
+    w.document.write('<!DOCTYPE html><html><head><title>'+window._currentDoc.name+'</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff;}img{max-width:100%;max-height:100vh;object-fit:contain;}@media print{body{margin:0;}img{width:100%;height:auto;}}</style></head><body><img src="'+window._currentDoc.data+'" alt="'+window._currentDoc.name+'"><scr'+'ipt>window.onload=function(){setTimeout(function(){window.print();},400);};<'+'/script></body></html>');
+    w.document.close();
+}
+
+/* =============================================================
+   DELETE
+============================================================= */
+async function deleteDoc(id){
+    if(!confirm('এই ডকুমেন্টটি ডিলিট করবেন?'))return;
     await dbDelete(Number(id));
     renderDocsPage();
 }
 
-/* ===== EDIT DOC ===== */
-async function editDoc(id) {
-    const docs = await dbGetAll();
-    const doc  = docs.find(d => String(d.id) === String(id));
-    if (!doc) return;
-    document.getElementById('editDocId').value = doc.id;
-    document.getElementById('docNameInput').value = doc.name;
-    document.getElementById('uploadModalTitle').innerHTML = '<i class="fa-solid fa-pen" style="color:#1a1aec;margin-right:8px;"></i>ডকুমেন্ট পরিবর্তন করুন';
-    document.getElementById('saveBtnText').textContent = 'পরিবর্তন সেভ করুন';
-    // Show existing image in preview
-    const preview = document.getElementById('uploadPreview');
-    preview.src = doc.data;
-    preview.style.display = 'block';
-    document.getElementById('uploadDropArea').style.display = 'none';
-    window._editData = doc.data; // keep old image if no new one selected
+/* =============================================================
+   EDIT
+============================================================= */
+async function editDoc(id){
+    const docs=await dbGetAll();
+    const doc=docs.find(d=>String(d.id)===String(id));
+    if(!doc)return;
+    document.getElementById('editDocId').value=doc.id;
+    document.getElementById('docNameInput').value=doc.name;
+    document.getElementById('uploadModalTitle').innerHTML='<i class="fa-solid fa-pen" style="color:#1a1aec;margin-right:8px;"></i>ডকুমেন্ট পরিবর্তন করুন';
+    document.getElementById('saveBtnText').textContent='পরিবর্তন সেভ করুন';
+    const preview=document.getElementById('uploadPreview');
+    preview.src=doc.data;preview.style.display='block';
+    document.getElementById('uploadDropArea').style.display='none';
+    window._editData=doc.data;
     openUploadModal(true);
 }
 
-/* ===== UPLOAD MODAL ===== */
-let _selectedFileData = null;
+/* =============================================================
+   UPLOAD MODAL
+============================================================= */
+let _selectedFileData=null;
 
-function openUploadModal(isEdit = false) {
-    if (!isEdit) {
-        document.getElementById('editDocId').value = '';
-        document.getElementById('docNameInput').value = '';
-        document.getElementById('uploadPreview').style.display = 'none';
-        document.getElementById('uploadPreview').src = '';
-        document.getElementById('uploadDropArea').style.display = 'block';
-        document.getElementById('docFileInput').value = '';
-        document.getElementById('uploadModalTitle').innerHTML = '<i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন';
-        document.getElementById('saveBtnText').textContent = 'ডকুমেন্ট সেভ করুন';
-        _selectedFileData = null;
-        window._editData  = null;
+function openUploadModal(isEdit=false){
+    if(!isEdit){
+        document.getElementById('editDocId').value='';
+        document.getElementById('docNameInput').value='';
+        document.getElementById('uploadPreview').style.display='none';
+        document.getElementById('uploadPreview').src='';
+        document.getElementById('uploadDropArea').style.display='block';
+        document.getElementById('docFileInput').value='';
+        document.getElementById('uploadModalTitle').innerHTML='<i class="fa-solid fa-file-arrow-up" style="color:#1a1aec;margin-right:8px;"></i>নতুন ডকুমেন্ট যোগ করুন';
+        document.getElementById('saveBtnText').textContent='ডকুমেন্ট সেভ করুন';
+        _selectedFileData=null;window._editData=null;
     }
-    const modal = document.getElementById('uploadModal');
-    const sheet = document.getElementById('uploadSheet');
-    modal.style.opacity = '1';
-    modal.style.pointerEvents = 'all';
-    sheet.style.transform = 'translateY(0)';
-    document.body.style.overflow = 'hidden';
+    const m=document.getElementById('uploadModal'),s=document.getElementById('uploadSheet');
+    m.style.opacity='1';m.style.pointerEvents='all';s.style.transform='translateY(0)';
+    document.body.style.overflow='hidden';
 }
-function closeUploadModal() {
-    const modal = document.getElementById('uploadModal');
-    const sheet = document.getElementById('uploadSheet');
-    modal.style.opacity = '0';
-    modal.style.pointerEvents = 'none';
-    sheet.style.transform = 'translateY(100%)';
-    document.body.style.overflow = '';
-    _selectedFileData = null;
+function closeUploadModal(){
+    const m=document.getElementById('uploadModal'),s=document.getElementById('uploadSheet');
+    m.style.opacity='0';m.style.pointerEvents='none';s.style.transform='translateY(100%)';
+    document.body.style.overflow='';_selectedFileData=null;
 }
-function handleFileSelect(evt) {
-    const file = evt.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        _selectedFileData = e.target.result;
-        const preview = document.getElementById('uploadPreview');
-        preview.src = _selectedFileData;
-        preview.style.display = 'block';
-        document.getElementById('uploadDropArea').style.display = 'none';
+function handleFileSelect(evt){
+    const file=evt.target.files[0];if(!file)return;
+    const r=new FileReader();
+    r.onload=e=>{
+        _selectedFileData=e.target.result;
+        const p=document.getElementById('uploadPreview');
+        p.src=_selectedFileData;p.style.display='block';
+        document.getElementById('uploadDropArea').style.display='none';
     };
-    reader.readAsDataURL(file);
+    r.readAsDataURL(file);
 }
-
-async function saveDocument() {
-    const name   = document.getElementById('docNameInput').value.trim();
-    const editId = document.getElementById('editDocId').value;
-    const imgData = _selectedFileData || window._editData;
-
-    if (!name)    { alert('ডকুমেন্টের নাম লিখুন!'); return; }
-    if (!imgData) { alert('একটি ছবি সিলেক্ট করুন!'); return; }
-
-    const now    = new Date();
-    const dateStr = now.toLocaleDateString('bn-BD', { year:'numeric', month:'short', day:'numeric' });
-    const doc = {
-        id:   editId ? Number(editId) : Date.now(),
-        name,
-        data: imgData,
-        date: editId ? (await dbGetAll()).find(d=>String(d.id)===String(editId))?.date || dateStr : dateStr
+async function saveDocument(){
+    const name=document.getElementById('docNameInput').value.trim();
+    const editId=document.getElementById('editDocId').value;
+    const imgData=_selectedFileData||window._editData;
+    if(!name){alert('ডকুমেন্টের নাম লিখুন!');return;}
+    if(!imgData){alert('একটি ছবি সিলেক্ট করুন!');return;}
+    const dateStr=new Date().toLocaleDateString('bn-BD',{year:'numeric',month:'short',day:'numeric'});
+    const allDocs=await dbGetAll();
+    const existing=editId?allDocs.find(d=>String(d.id)===String(editId)):null;
+    const doc={
+        id:editId?Number(editId):Date.now(),
+        name,data:imgData,
+        date:existing?.date||dateStr,
+        locked:existing?.locked||false
     };
     await dbPut(doc);
     closeUploadModal();
     renderDocsPage();
 }
 
-/* ===== DRAG & DROP ===== */
-document.addEventListener('DOMContentLoaded', function() {
-    renderDocsPage(); // init badge on load
-    const drop = document.getElementById('uploadDropArea');
-    drop.addEventListener('dragover', e => { e.preventDefault(); drop.style.borderColor='#1a1aec'; drop.style.background='rgba(26,26,236,0.08)'; });
-    drop.addEventListener('dragleave', () => { drop.style.borderColor=''; drop.style.background=''; });
-    drop.addEventListener('drop', e => {
+/* =============================================================
+   INIT
+============================================================= */
+document.addEventListener('DOMContentLoaded',function(){
+    initDB().then(()=>{getPassHash();renderDocsPage();});
+    const drop=document.getElementById('uploadDropArea');
+    drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='#1a1aec';drop.style.background='rgba(26,26,236,0.08)';});
+    drop.addEventListener('dragleave',()=>{drop.style.borderColor='';drop.style.background='';});
+    drop.addEventListener('drop',e=>{
         e.preventDefault();
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const r = new FileReader();
-            r.onload = ev => {
-                _selectedFileData = ev.target.result;
-                document.getElementById('uploadPreview').src = _selectedFileData;
-                document.getElementById('uploadPreview').style.display = 'block';
-                drop.style.display = 'none';
+        const file=e.dataTransfer.files[0];
+        if(file&&file.type.startsWith('image/')){
+            const r=new FileReader();
+            r.onload=ev=>{
+                _selectedFileData=ev.target.result;
+                document.getElementById('uploadPreview').src=_selectedFileData;
+                document.getElementById('uploadPreview').style.display='block';
+                drop.style.display='none';
             };
             r.readAsDataURL(file);
         }
     });
-    document.getElementById('uploadModal').addEventListener('click', function(e) {
-        if (e.target === this) closeUploadModal();
-    });
+    document.getElementById('uploadModal').addEventListener('click',function(e){if(e.target===this)closeUploadModal();});
 });
 
-/* ===== PDF DOWNLOAD ===== */
-async function downloadCardPDF() {
-    const btn = document.getElementById('pdfBtn');
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>GENERATING...</span>';
-    btn.disabled = true;
-    try {
-        const card = document.getElementById('cardExport');
-        const CARD_W = 1050, CARD_H = 600;
-        const template = document.getElementById('pdf-template');
-        template.style.cssText = 'position:fixed;left:0;top:0;z-index:-1;opacity:1;visibility:visible;';
-        const images = card.querySelectorAll('img');
-        await Promise.all(Array.from(images).map(img => img.complete ? Promise.resolve() : new Promise(res => { img.onload = res; img.onerror = res; })));
-        await new Promise(r => setTimeout(r, 400));
-        const canvas = await html2canvas(card, { scale:2, useCORS:true, allowTaint:true, logging:false, width:CARD_W, height:CARD_H, scrollX:0, scrollY:0, backgroundColor:null, imageTimeout:15000 });
-        template.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;visibility:hidden;';
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ orientation:'landscape', unit:'mm', format:[279,159], compress:true });
-        pdf.addImage(canvas.toDataURL('image/jpeg',0.97), 'JPEG', 0, 0, 279, 159, '', 'FAST');
+/* =============================================================
+   PDF DOWNLOAD
+============================================================= */
+async function downloadCardPDF(){
+    const btn=document.getElementById('pdfBtn');
+    const orig=btn.innerHTML;
+    btn.innerHTML='<i class="fa-solid fa-circle-notch fa-spin"></i> <span>GENERATING...</span>';
+    btn.disabled=true;
+    try{
+        const card=document.getElementById('cardExport');
+        const template=document.getElementById('pdf-template');
+        template.style.cssText='position:fixed;left:0;top:0;z-index:-1;opacity:1;visibility:visible;';
+        const imgs=card.querySelectorAll('img');
+        await Promise.all(Array.from(imgs).map(img=>img.complete?Promise.resolve():new Promise(r=>{img.onload=r;img.onerror=r;})));
+        await new Promise(r=>setTimeout(r,400));
+        const canvas=await html2canvas(card,{scale:2,useCORS:true,allowTaint:true,logging:false,width:1050,height:600,scrollX:0,scrollY:0,backgroundColor:null,imageTimeout:15000});
+        template.style.cssText='position:fixed;left:-9999px;top:-9999px;opacity:0;visibility:hidden;';
+        const{jsPDF}=window.jspdf;
+        const pdf=new jsPDF({orientation:'landscape',unit:'mm',format:[279,159],compress:true});
+        pdf.addImage(canvas.toDataURL('image/jpeg',0.97),'JPEG',0,0,279,159,'','FAST');
         pdf.save('AKS_Swadhin_Business_Card.pdf');
-        btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> <span>DOWNLOADED!</span>';
-        btn.style.background = 'linear-gradient(135deg,#16a34a,#15803d)';
-        setTimeout(() => { btn.innerHTML = originalHTML; btn.style.background = ''; btn.disabled = false; }, 3000);
-    } catch(err) {
-        btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span>RETRY</span>';
-        btn.disabled = false;
-        setTimeout(() => { btn.innerHTML = originalHTML; }, 3000);
+        btn.innerHTML='<i class="fa-solid fa-check-circle"></i> <span>DOWNLOADED!</span>';
+        btn.style.background='linear-gradient(135deg,#16a34a,#15803d)';
+        setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false;},3000);
+    }catch(err){
+        btn.innerHTML='<i class="fa-solid fa-triangle-exclamation"></i> <span>RETRY</span>';
+        btn.disabled=false;
+        setTimeout(()=>{btn.innerHTML=orig;},3000);
     }
 }
 </script>
